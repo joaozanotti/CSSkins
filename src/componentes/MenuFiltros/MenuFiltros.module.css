@@ -1,0 +1,110 @@
+.menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #fff;
+    border-bottom: 2px solid #5e5e5e;
+    padding: 10px;
+    gap: 15px;
+    background-color: #1a1a1a;
+}
+
+.menu section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.menu form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu select {
+    width: 150px;
+    height: 35px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 0;
+    padding-left: 5px;
+}
+
+.menu input[type="text"] {
+    width: 200px;
+    height: 35px;
+    font-size: 16px;
+    margin-right: 10px;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: 0;
+    transition: 50ms;
+}
+
+.menu input[type="text"]:hover {
+    box-shadow: 0px 0px 4px 1px #cfcfcf;
+}
+
+.menu button[type="submit"] {
+    width: 35px;
+    height: 35px;
+    font-size: 28px;
+    background-color: #13315C;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    transition: 150ms;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu button[type="submit"]:hover {
+    background-color: #06162e;
+    cursor: pointer;
+}
+
+.botaoResetar {
+    width: 200px;
+    height: 35px;
+    font-size: 16px;
+    background-color: #5c1313;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+}
+
+.botaoResetar:hover {
+    background-color: #2e0505;
+    cursor: pointer;
+}
+
+.menu p {
+    margin-right: 10px;
+}
+
+@media (max-width: 1210px) {
+    .menu select {
+        width: 95px;
+        font-size: 15px;
+    }
+
+    .menu input[type="text"] {
+        width: 150px;
+        font-size: 15px;
+    }
+
+    .botaoResetar {
+        width: 100px;
+        font-size: 15px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 910px) {
+    .menu {
+        justify-content: center;
+    }
+}

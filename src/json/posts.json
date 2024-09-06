@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "titulo": "Curso de Front-End",
+        "slug": "curso-de-front-end",
+        "descricao": "O curso de Front-End é projetado para ensinar os fundamentos de desenvolvimento web, incluindo HTML e CSS. Durante o curso, os alunos aprenderão a criar páginas web visualmente atraentes e responsivas, utilizando as melhores práticas de design e codificação. Além das aulas teóricas, o curso oferece projetos práticos para aplicar os conhecimentos adquiridos e desenvolver habilidades essenciais para a carreira de desenvolvedor Front-End.",
+        "briefing": "Foco em HTML e CSS para páginas web responsivas."
+    },
+    {
+        "id": 2,
+        "titulo": "Curso de Back-End",
+        "slug": "curso-de-back-end",
+        "descricao": "O curso de Back-End é voltado para aqueles que desejam aprender a construir e gerenciar a lógica e as funcionalidades de um site ou aplicativo. Este curso aborda a criação e manutenção de servidores, integração de banco de dados, e desenvolvimento de APIs. Os alunos ganharão conhecimentos práticos em linguagens de programação específicas para o back-end e aprenderão a garantir a segurança e eficiência das aplicações web.",
+        "briefing": "Ênfase em servidores, bancos de dados e APIs."
+    }
+]

@@ -1,0 +1,33 @@
+.error {
+    display: flex;
+    gap: 50px;
+    color: #fff;
+}
+
+.error img {    
+    height: 150px;
+}
+
+.error p {
+    margin-top: 25px;
+}
+
+.error h1 {
+    font-size: 52px;
+}
+
+.botaoError {
+    background-color: #13315C;
+    color: #fff;
+    padding: 8px;
+    margin-top: 25px;
+    border-radius: 5px;
+    width: 100px;
+    border: 0;
+    font-size: 18px;
+}
+
+.botaoError:hover {
+    cursor: pointer;
+    background-color: #06162e;
+}

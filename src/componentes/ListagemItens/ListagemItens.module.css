@@ -1,0 +1,82 @@
+.carrossel {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.carrossel h1 {
+    color: #fff;
+    align-self: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.carrossel ul {
+    background-color: #0c0c0c;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 15px;
+    gap: 20px;
+}
+
+.carrossel ul li {
+    background-color: #292929;
+    padding: 15px;
+    border: 1px solid #5e5e5e;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 250px;
+    border-radius: 20px;
+    min-height: 255px;
+}
+
+.carrossel ul li:hover {
+    transform: scale(1.05);
+    transition: 150ms;
+    background-color: rgb(20, 20, 20);
+}
+
+.carrossel ul li:not(:hover) {
+    transform: scale(1);
+    transition: 150ms;
+}
+
+.carrossel ul li div:nth-child(2) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.carrossel ul li img {
+    max-width: 150px;
+}
+
+.carrossel ul li a {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.carrossel ul li h1 {
+    font-size: 18px;    
+    margin: 0;
+}
+
+.carrossel ul li p {
+    color: #ffffff;
+}
+
+@media (max-width: 380px) {
+    .carrossel h1 {
+        font-size: 30px;
+    }
+}

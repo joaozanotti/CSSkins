@@ -1,0 +1,13 @@
+.sobrenos {
+    display: flex;
+    gap: 50px;
+    color: #fff;
+}
+
+.sobrenos img {    
+    height: 150px;
+}
+
+.sobrenos p {
+    margin-top: 25px;
+}
