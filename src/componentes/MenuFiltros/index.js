@@ -1,24 +1,43 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import estilos from "./MenuFiltros.module.css";
+import React, { useRef } from "react";
 
 function MenuFiltros(props) {
+    const inputNameRef = useRef(null);
+    const selectCategoryRef = useRef(null);
+    const selectOrdenationRef = useRef(null);
+
+    const handleInputBlur = () => {
+        inputNameRef.current.blur();
+    };
+
+    const handleSelectCategoryBlur = () => {
+        selectCategoryRef.current.blur();
+    };
+
+    const handleSelectOrdenationBlur = () => {
+        selectOrdenationRef.current.blur();
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         props.setNome(props.inputNome.trim());
         props.resetarQtdItens();
+        handleInputBlur();
     }
 
     const handleSelectCategoria = (e) => {
         e.preventDefault();
         props.setCategoria(e.target.value);
         props.resetarQtdItens();
+        handleSelectCategoryBlur();
     }
 
     const handleSelectOrdenacao = (e) => {
         e.preventDefault();
         props.setOrdenacao(e.target.value);
         props.resetarQtdItens();
+        handleSelectOrdenationBlur();
     }
 
     return (
@@ -26,7 +45,7 @@ function MenuFiltros(props) {
             <section>
                 <form onSubmit={handleSubmit}>
                     <p>Nome da skin:</p>
-                    <input type="text" placeholder="Digite o nome..." value={props.inputNome} onChange={(e) => {
+                    <input ref={inputNameRef} type="text" placeholder="Digite o nome..." value={props.inputNome} onChange={(e) => {
                         props.setInputNome(e.target.value);
                         if (e.target.key === "Enter") {
                             handleSubmit();
@@ -37,7 +56,7 @@ function MenuFiltros(props) {
             </section>
             <section>
                 <p>Categoria:</p>
-                <select onChange={handleSelectCategoria} value={props.idCategoria}>
+                <select ref={selectCategoryRef} onChange={handleSelectCategoria} value={props.idCategoria}>
                     <option value="">Todos</option>
                     <option value="csgo_inventory_weapon_category_pistols">Pistolas</option>
                     <option value="csgo_inventory_weapon_category_smgs">SMGs</option>
@@ -49,7 +68,7 @@ function MenuFiltros(props) {
             </section>
             <section>
                 <p>Ordenar por:</p>
-                <select onChange={handleSelectOrdenacao} value={props.ordenacao}>
+                <select ref={selectOrdenationRef} onChange={handleSelectOrdenacao} value={props.ordenacao}>
                     <option value="alfabetica">Nome</option>
                     <option value="raridade">Raridade</option>
                 </select>
