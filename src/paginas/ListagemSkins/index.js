@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import DadosApi from "../../componentes/DadosApi";
 import Footer from "../../componentes/Footer";
 import Header from "../../componentes/Header";
@@ -5,6 +6,8 @@ import Main from "../../componentes/Main";
 import MenuFiltros from "../../componentes/MenuFiltros";
 
 function ListagemSkins(props) {
+    useEffect(() => { document.title = "CS SKINS | Skins"; }, []);
+
     return (
         <>
             <Header linkAtivo="skins"/>

@@ -89,10 +89,15 @@
     .menu select {
         width: 95px;
         font-size: 15px;
+        height: 30px;
     }
 
     .menu input[type="text"] {
         width: 150px;
+        font-size: 15px;
+    }
+
+    .menu p {
         font-size: 15px;
     }
 

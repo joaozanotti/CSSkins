@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import Footer from '../../componentes/Footer';
 import Header from '../../componentes/Header';
 import Main from '../../componentes/Main';
 import estilos from './Sobre.module.css';
 
 function Sobre() {
+    useEffect(() => { document.title = "CS SKINS | Sobre"; }, []);
+
     return (
         <>
             <Header linkAtivo="sobre"/>

@@ -75,6 +75,16 @@
     color: #ffffff;
 }
 
+@media (max-width: 600px) {
+    .carrossel {
+        gap: 20px;
+    }
+
+    .carrossel h1 {
+        margin-top: 5px;
+    }
+}
+
 @media (max-width: 380px) {
     .carrossel h1 {
         font-size: 30px;

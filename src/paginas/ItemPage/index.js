@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import estilos from './ItemPage.module.css';
 import NaoEncontrada from '../NaoEncontrada';
@@ -7,6 +8,8 @@ import Footer from '../../componentes/Footer';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 function ItemPage(props) {
+    useEffect(() => { document.title = "CS SKINS | Skins"; }, []);
+
     window.scrollTo({
         top: 0,
         left: 0
@@ -16,9 +19,9 @@ function ItemPage(props) {
     const parametros = useParams();
 
     const post = props.vetSkins.find(elemento => elemento.id === parametros.id);
-
+    
     if (!post) {
-        return (<NaoEncontrada/>)
+        return (<NaoEncontrada/>);
     }
 
     // A descrição de alguns itens da API vêm com alguns elementos html indesejados que atrapalham na exibição
@@ -40,8 +43,6 @@ function ItemPage(props) {
     } else {
         descricao = post.description;
     }
-
-    console.log(post);
 
     return (   
         <>

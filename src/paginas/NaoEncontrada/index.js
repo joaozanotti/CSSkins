@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import estilos from './NaoEncontrada.module.css';
 import Header from '../../componentes/Header';
@@ -5,6 +6,8 @@ import Main from '../../componentes/Main';
 import Footer from '../../componentes/Footer';
 
 function NaoEncontrada() {
+    useEffect(() => { document.title = "CS SKINS | Erro 404"; }, []);
+
     const navegar = useNavigate();
 
     return (

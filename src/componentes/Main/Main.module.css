@@ -10,6 +10,12 @@ main {
     padding: 50px 40px;
 }
 
+@media (max-width: 600px) {
+    .container {
+        padding: 35px 30px;
+    }
+}
+
 @media (max-width: 380px) {
     .container {
         padding: 25px 20px;
