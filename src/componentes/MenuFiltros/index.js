@@ -4,17 +4,13 @@ import React, { useRef } from "react";
 
 function MenuFiltros(props) {
     const inputNameRef = useRef(null);
-    const submitNameRef = useRef(null);
     const selectCatRef = useRef(null);
     const selectOrdRef = useRef(null);
-    const clearSearchRef = useRef(null);
 
     const handleBlurAll = () => {
         inputNameRef.current.blur();
-        submitNameRef.current.blur();
         selectCatRef.current.blur();
         selectOrdRef.current.blur();
-        clearSearchRef.current.blur();
     }
 
     const handleSubmit = (e) => {
@@ -49,7 +45,7 @@ function MenuFiltros(props) {
                             handleSubmit();
                         }
                     }}/>
-                    <button ref={submitNameRef} type="submit" onClick={handleBlurAll}><Icon icon="material-symbols:search"/></button>
+                    <button type="submit"><Icon icon="material-symbols:search"/></button>
                 </form>
             </section>
             <section>
@@ -72,10 +68,7 @@ function MenuFiltros(props) {
                 </select>
             </section>
             <section>
-                <button ref={clearSearchRef} className={estilos.botaoResetar} onClick={() => {
-                    props.resetarPesquisa();
-                    handleBlurAll();
-                }}>Resetar pesquisa</button>
+                <button className={estilos.botaoResetar} onClick={props.resetarPesquisa}>Resetar pesquisa</button>
             </section>
         </div>
     )
