@@ -4,40 +4,38 @@ import React, { useRef } from "react";
 
 function MenuFiltros(props) {
     const inputNameRef = useRef(null);
-    const selectCategoryRef = useRef(null);
-    const selectOrdenationRef = useRef(null);
+    const submitNameRef = useRef(null);
+    const selectCatRef = useRef(null);
+    const selectOrdRef = useRef(null);
+    const clearSearchRef = useRef(null);
 
-    const handleInputBlur = () => {
+    const handleBlurAll = () => {
         inputNameRef.current.blur();
-    };
-
-    const handleSelectCategoryBlur = () => {
-        selectCategoryRef.current.blur();
-    };
-
-    const handleSelectOrdenationBlur = () => {
-        selectOrdenationRef.current.blur();
-    };
+        submitNameRef.current.blur();
+        selectCatRef.current.blur();
+        selectOrdRef.current.blur();
+        clearSearchRef.current.blur();
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
         props.setNome(props.inputNome.trim());
         props.resetarQtdItens();
-        handleInputBlur();
+        handleBlurAll();
     }
 
     const handleSelectCategoria = (e) => {
         e.preventDefault();
         props.setCategoria(e.target.value);
         props.resetarQtdItens();
-        handleSelectCategoryBlur();
+        handleBlurAll();
     }
 
     const handleSelectOrdenacao = (e) => {
         e.preventDefault();
         props.setOrdenacao(e.target.value);
         props.resetarQtdItens();
-        handleSelectOrdenationBlur();
+        handleBlurAll();
     }
 
     return (
@@ -51,12 +49,12 @@ function MenuFiltros(props) {
                             handleSubmit();
                         }
                     }}/>
-                    <button type="submit"><Icon icon="material-symbols:search"/></button>
+                    <button ref={submitNameRef} type="submit" onClick={handleBlurAll}><Icon icon="material-symbols:search"/></button>
                 </form>
             </section>
             <section>
                 <p>Categoria:</p>
-                <select ref={selectCategoryRef} onChange={handleSelectCategoria} value={props.idCategoria}>
+                <select ref={selectCatRef} onChange={handleSelectCategoria} value={props.idCategoria}>
                     <option value="">Todos</option>
                     <option value="csgo_inventory_weapon_category_pistols">Pistolas</option>
                     <option value="csgo_inventory_weapon_category_smgs">SMGs</option>
@@ -68,13 +66,16 @@ function MenuFiltros(props) {
             </section>
             <section>
                 <p>Ordenar por:</p>
-                <select ref={selectOrdenationRef} onChange={handleSelectOrdenacao} value={props.ordenacao}>
+                <select ref={selectOrdRef} onChange={handleSelectOrdenacao} value={props.ordenacao}>
                     <option value="alfabetica">Nome</option>
                     <option value="raridade">Raridade</option>
                 </select>
             </section>
             <section>
-                <button className={estilos.botaoResetar} onClick={props.resetarPesquisa}>Resetar pesquisa</button>
+                <button ref={clearSearchRef} className={estilos.botaoResetar} onClick={() => {
+                    props.resetarPesquisa();
+                    handleBlurAll();
+                }}>Resetar pesquisa</button>
             </section>
         </div>
     )
