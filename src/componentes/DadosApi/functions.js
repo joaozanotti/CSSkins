@@ -47,11 +47,23 @@ export const verificarRaridade = (raridade) => {
     return numRaridade;
 }
 
-export const ordenarPorRaridade = (array) => {
+export const ordenarPorMenorRaridade = (array) => {
     const filtroOrdenacao = array.sort((a, b) => {
         if (verificarRaridade(a.rarity.id) < verificarRaridade(b.rarity.id)) {
             return -1;
         } else if (verificarRaridade(a.rarity.id) > verificarRaridade(b.rarity.id)) {
+            return 1;
+        }
+        return 0;
+    });
+    return filtroOrdenacao;
+}
+
+export const ordenarPorMaiorRaridade = (array) => {
+    const filtroOrdenacao = array.sort((a, b) => {
+        if (verificarRaridade(a.rarity.id) > verificarRaridade(b.rarity.id)) {
+            return -1;
+        } else if (verificarRaridade(a.rarity.id) < verificarRaridade(b.rarity.id)) {
             return 1;
         }
         return 0;

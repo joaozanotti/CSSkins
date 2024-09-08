@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ListagemItens from '../ListagemItens';
-import { filtrarPorNome, filtrarPorCategoria, ordenarPorNome, ordenarPorRaridade } from "./functions";
+import { filtrarPorNome, filtrarPorCategoria, ordenarPorNome, ordenarPorMaiorRaridade, ordenarPorMenorRaridade } from "./functions";
 import estilos from "./DadosApi.module.css";
 import { Icon } from '@iconify/react/dist/iconify.js';
 
@@ -22,9 +22,20 @@ function DadosApi({vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, a
 
     useEffect(() => {
         const filtroNome = filtrarPorNome(dados, nome);
+
         const filtroCategoria = filtrarPorCategoria(filtroNome, idCategoria);
-        const filtroOrdenacao = ordenacao === "alfabetica" ? ordenarPorNome(filtroCategoria) : ordenarPorRaridade(filtroCategoria);
+
+        let filtroOrdenacao;
+        if (ordenacao === "alfabetica") {
+            filtroOrdenacao = ordenarPorNome(filtroCategoria);
+        } else if (ordenacao === "maior-raridade") {
+            filtroOrdenacao = ordenarPorMaiorRaridade(filtroCategoria)
+        } else {
+            filtroOrdenacao = ordenarPorMenorRaridade(filtroCategoria)
+        }
+
         const itensLimitados = filtroOrdenacao.slice(0, qtdItens);
+        
         setSkins(itensLimitados);
     }, [nome, idCategoria, dados, qtdItens, ordenacao, setSkins]);
 

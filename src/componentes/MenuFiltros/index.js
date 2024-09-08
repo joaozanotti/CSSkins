@@ -50,7 +50,7 @@ function MenuFiltros(props) {
             </section>
             <section>
                 <p>Categoria:</p>
-                <select ref={selectCatRef} onChange={handleSelectCategoria} value={props.idCategoria}>
+                <select className={estilos.selectCategoria} ref={selectCatRef} onChange={handleSelectCategoria} value={props.idCategoria}>
                     <option value="">Todos</option>
                     <option value="csgo_inventory_weapon_category_pistols">Pistolas</option>
                     <option value="csgo_inventory_weapon_category_smgs">SMGs</option>
@@ -62,9 +62,10 @@ function MenuFiltros(props) {
             </section>
             <section>
                 <p>Ordenar por:</p>
-                <select ref={selectOrdRef} onChange={handleSelectOrdenacao} value={props.ordenacao}>
+                <select className={estilos.selectOrdenacao} ref={selectOrdRef} onChange={handleSelectOrdenacao} value={props.ordenacao}>
                     <option value="alfabetica">Nome</option>
-                    <option value="raridade">Raridade</option>
+                    <option value="menor-raridade">Menor raridade</option>
+                    <option value="maior-raridade">Maior raridade</option>
                 </select>
             </section>
             <section>
