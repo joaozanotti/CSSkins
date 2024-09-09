@@ -5,6 +5,12 @@
     margin-bottom: 20px;
 }
 
+.loading {
+    color: #fff;
+    font-size: 60px;
+    align-self: center;
+}
+
 .item {
     display: flex;
     justify-content: center;

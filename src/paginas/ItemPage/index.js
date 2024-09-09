@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import estilos from './ItemPage.module.css';
 import NaoEncontrada from '../NaoEncontrada';
@@ -15,14 +15,31 @@ function ItemPage(props) {
         left: 0
     });
 
+    const [vetPesquisa, setPesquisa] = useState([]);
+
+    useEffect(() => { fetchData(); }, []);
+
+    const fetchData = async () => {
+        try { 
+            const response = await fetch("https://bymykel.github.io/CSGO-API/api/en/skins.json");
+            const data = await response.json();
+            setPesquisa(data);
+
+        } catch (error) {
+            console.error('Erro ao buscar dados da API:', error); 
+        }
+    }
+
     const navegar = useNavigate();
     const parametros = useParams();
 
-    const post = props.vetSkins.find(elemento => elemento.id === parametros.id);
+    const post = vetPesquisa.find(elemento => elemento.id === parametros.id);
     
     if (!post) {
-        return (<NaoEncontrada/>);
+        return <p className={estilos.loading}><Icon icon="eos-icons:loading"/></p>
     }
+
+    console.log(post);
 
     // A descrição de alguns itens da API vêm com alguns elementos html indesejados que atrapalham na exibição
     // Estes são: "\n\n<i>" no meio da string e "</i>" no final da string
@@ -78,7 +95,7 @@ function ItemPage(props) {
                                 <p>Caixas:</p>
                                 {
                                     post.crates === undefined || post.crates.length === 0 ? <p className={estilos.description}>Sem caixas</p> : 
-                                    post.crates.map((caixa, indice) => {
+                                    post.crates.map((caixa) => {
                                         return (
                                             <div key={caixa.id}>
                                                 <img alt="Logo da caixa" src={caixa.image} width="50px"/>

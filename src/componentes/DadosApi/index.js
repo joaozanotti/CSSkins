@@ -43,7 +43,7 @@ function DadosApi({vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, a
         <div className={estilos.listagem}>
             <ListagemItens skins={vetSkins}/>
             {
-            nome === "" && idCategoria === "" && vetSkins.length === 0 ? <p className={estilos.loading}><Icon icon="mingcute:loading-fill"/></p> : ""
+            nome === "" && idCategoria === "" && vetSkins.length === 0 ? <p className={estilos.loading}><Icon icon="eos-icons:loading"/></p> : ""
             }
             {
             (nome !== "" || idCategoria !== "") && vetSkins.length === 0 ? <p className={estilos.msgErro}>Nenhuma skin encontrada.</p> : ""

@@ -11,15 +11,15 @@ function ListagemSkins(props) {
     return (
         <>
             <Header linkAtivo="skins"/>
-            <MenuFiltros 
-                inputNome={props.inputNome} setInputNome={props.setInputNome}
-                setQtdItens={props.setQtdItens} setNome={props.setNome}
+            <MenuFiltros
+                vetSkins={props.vetSkins} setQtdItens={props.setQtdItens} setNome={props.setNome}
                 idCategoria={props.idCategoria} setCategoria={props.setCategoria}
                 ordenacao={props.ordenacao} setOrdenacao={props.setOrdenacao}
-                resetarQtdItens={props.resetarQtdItens} resetarPesquisa={props.resetarPesquisa}
+                resetarQtdItens={props.resetarQtdItens}
+                qtdPadraoItens={props.qtdPadraoItens}
             />
             <Main>
-                <DadosApi 
+                <DadosApi
                     vetSkins={props.vetSkins} setSkins={props.setSkins}
                     nome={props.nome} idCategoria={props.idCategoria} 
                     ordenacao={props.ordenacao} qtdItens={props.qtdItens} 
