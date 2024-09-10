@@ -1,0 +1,127 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    width: 90%;
+    align-self: center;
+    text-align: justify;
+    gap: 40px;
+}
+
+.inicio {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+    width: 60%;
+}
+
+.inicio h1 {
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.inicio p {
+    font-size: 17px;
+}
+
+.container img {
+    width: 40%;
+    border-radius: 20px;
+}
+
+.botaoSkins {
+    background-color: #292929;
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    width: 250px;
+    height: 50px;
+    border: 0;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: 150ms;
+}
+
+.botaoSkins:hover {
+    cursor: pointer;
+    background-color: #4d4d4d;
+}
+
+@media (max-width: 1400px) {
+    .inicio h1 {
+        font-size: 30px;
+    }
+    
+    .inicio p {
+        font-size: 16px;
+    }
+
+    .botaoSkins {
+        font-size: 16px;
+        width: 200px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .inicio h1 {
+        font-size: 28px;
+    }
+    
+    .inicio p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .inicio {
+        width: 55%;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .container img {
+        width: 45%;
+    }
+}
+
+@media (max-width: 850px) {
+    .inicio {
+        width: 80%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .inicio h1 {
+        text-align: center;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .container img {
+        width: 50%;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .inicio {
+        width: 100%;
+    }
+
+    .container img {
+        width: 60%;
+    }
+}
+
+@media (max-width: 500px) {
+    .container img {
+        width: 80%;
+    }
+}

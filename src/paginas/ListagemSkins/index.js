@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import DadosApi from "../../componentes/DadosApi";
-import Footer from "../../componentes/Footer";
-import Header from "../../componentes/Header";
 import Main from "../../componentes/Main";
 import MenuFiltros from "../../componentes/MenuFiltros";
 
@@ -10,7 +8,6 @@ function ListagemSkins(props) {
 
     return (
         <>
-            <Header linkAtivo="skins"/>
             <MenuFiltros
                 vetSkins={props.vetSkins} setQtdItens={props.setQtdItens} setNome={props.setNome}
                 idCategoria={props.idCategoria} setCategoria={props.setCategoria}
@@ -26,7 +23,6 @@ function ListagemSkins(props) {
                     setQtdItens={props.setQtdItens} aumentarQtdItens={props.aumentarQtdItens}
                 />
             </Main>
-            <Footer autor="João Vitor"/>
         </>
     )
 }

@@ -28,10 +28,12 @@ function DadosApi({vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, a
         let filtroOrdenacao;
         if (ordenacao === "alfabetica") {
             filtroOrdenacao = ordenarPorNome(filtroCategoria);
+
         } else if (ordenacao === "maior-raridade") {
-            filtroOrdenacao = ordenarPorMaiorRaridade(filtroCategoria)
+            filtroOrdenacao = ordenarPorMaiorRaridade(filtroCategoria);
+            
         } else {
-            filtroOrdenacao = ordenarPorMenorRaridade(filtroCategoria)
+            filtroOrdenacao = ordenarPorMenorRaridade(filtroCategoria);
         }
 
         const itensLimitados = filtroOrdenacao.slice(0, qtdItens);

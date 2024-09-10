@@ -1,13 +1,55 @@
 .sobrenos {
     display: flex;
-    gap: 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    align-self: center;
+    gap: 30px;
     color: #fff;
+    width: 90%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .sobrenos img {    
-    height: 150px;
+    width: 250px;
 }
 
 .sobrenos p {
     margin-top: 25px;
+    font-size: 17px;
+}
+
+.sobrenos h1 {
+    font-size: 32px;
+}
+
+@media (max-width: 900px) {
+    .sobrenos {
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .sobrenos p {
+        font-size: 16px;
+    }
+
+    .sobrenos h1 {
+        font-size: 30px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 500px) {
+    .sobrenos img {    
+        width: 180px;
+    }
+
+    .sobrenos p {
+        font-size: 15px;
+    }
+
+    .sobrenos h1 {
+        font-size: 29px;
+    }
 }

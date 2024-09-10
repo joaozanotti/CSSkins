@@ -5,6 +5,9 @@ import estilos from './App.module.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 import ListagemSkins from './paginas/ListagemSkins';
+import Header from './componentes/Header';
+import Footer from './componentes/Footer';
+import Inicio from './paginas/Inicio';
 
 function App() {
   const [vetSkins, setSkins] = useState([]);
@@ -24,7 +27,9 @@ function App() {
   return (
     <div className={estilos.container}>
       <BrowserRouter>
+        <Header/>
         <Routes>
+          <Route path="/" element={<Inicio/>}/>
           <Route path="/skins" element={
             <ListagemSkins
               vetSkins={vetSkins} setSkins={setSkins}
@@ -39,6 +44,7 @@ function App() {
           <Route path="/skins/:id" element={<ItemPage vetSkins={vetSkins} resetarQtdItens={resetarQtdItens}/>}/>
           <Route path="/*" element={<NaoEncontrada/>}/>
         </Routes>
+        <Footer autor="João Vitor"/>
       </BrowserRouter>
     </div>
   )

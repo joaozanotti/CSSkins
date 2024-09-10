@@ -1,31 +1,28 @@
 import { useEffect } from 'react';
-import Footer from '../../componentes/Footer';
-import Header from '../../componentes/Header';
-import Main from '../../componentes/Main';
 import estilos from './Sobre.module.css';
+import Main from '../../componentes/Main';
 
 function Sobre() {
     useEffect(() => { document.title = "CS SKINS | Sobre"; }, []);
 
     return (
-        <>
-            <Header linkAtivo="sobre"/>
-            <Main>
+        <Main>
             <div className={estilos.sobrenos}>
-                <img src="/images/logo.png" alt="Sobre Nos"/>
+                <img src="/images/logo.png" alt="Logo do site"/>
                 <div>
-                    <h1> Sobre mim </h1>
+                    <h1>Sobre nós</h1>
                     <p>
-                        <b>Lorem ipsum dolor</b> sit amet, consectetur adipiscing elit. Curabitur eu porttitor felis, eu commodo urna. In nec porttitor nisl. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nam eget fringilla nisi. Ut eu tortor nec ligula vehicula faucibus ac nec risus. Mauris ut elementum tellus. Morbi sed ultrices sem. Vivamus et risus ornare, ornare lorem sed, ultricies sapien. Donec porttitor cursus dui ac dapibus. Curabitur aliquet a lacus vel pulvinar. Proin ac euismod erat. Nullam eget libero blandit, venenatis felis eu, laoreet sem. Pellentesque orci libero, molestie ac massa convallis, interdum vehicula tortor. Sed non aliquet est
+                        Somos apaixonados por Counter-Strike 2 e entendemos que as skins não são apenas uma maneira de personalizar seu jogo, mas também uma extensão do seu estilo e personalidade dentro do campo de batalha. Nosso site foi criado com o objetivo de ser uma plataforma completa e confiável para os jogadores que buscam informações detalhadas e atualizadas sobre as skins mais icônicas do CS2.
                     </p>
                     <p>
-                        <b>Donec ut tristique </b> ante, non lacinia arcu. Ut lobortis ipsum ut ipsum aliquet, ullamcorper faucibus lorem luctus. Vestibulum porttitor commodo lectus sed vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque et ligula maximus, consequat erat non, scelerisque nulla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed ultrices odio pellentesque nibh viverra, sed lobortis justo convallis. Fusce metus ante, lacinia in feugiat eu, pellentesque sed metus. Vivamus sit amet est bibendum, dictum enim sed, hendrerit libero. Ut efficitur ligula id volutpat maximus.
+                        Nosso compromisso é com a comunidade CS2. Entendemos que, seja você um colecionador em busca das peças mais raras ou um jogador casual querendo dar aquele upgrade visual no seu inventário, todos merecem uma experiência fácil, rápida e completa. Por isso, focamos na clareza das informações e na navegação intuitiva, para que você possa encontrar o que precisa com poucos cliques.
+                    </p>
+                    <p>
+                        Nosso site foi criado por jogadores, para jogadores. Estamos comprometidos em continuar melhorando, ouvindo o feedback da nossa comunidade e trazendo sempre o melhor conteúdo. Seja bem-vindo, e prepare-se para explorar o vasto e emocionante universo das skins de CS2!
                     </p>
                 </div>
             </div>
-            </Main>
-            <Footer autor="João Vitor"/>
-        </>
+        </Main>
     )
 }
 

@@ -1,11 +1,20 @@
 .error {
     display: flex;
-    gap: 50px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
     color: #fff;
+    width: 90%;
+    padding: 20px;
+    border-radius: 20px;
+    align-self: center;
+    text-align: center;
+    flex-wrap: wrap;
 }
 
 .error img {    
-    height: 150px;
+    width: 35%;
 }
 
 .error p {
@@ -13,21 +22,71 @@
 }
 
 .error h1 {
-    font-size: 52px;
+    font-size: 40px;
+    text-align: center;
 }
 
-.botaoError {
+.error div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.botaoRedirecionar {
     background-color: #13315C;
     color: #fff;
     padding: 8px;
-    margin-top: 25px;
+    margin-top: 10px;
     border-radius: 5px;
-    width: 100px;
+    width: 220px;
+    min-height: 70px;
     border: 0;
-    font-size: 18px;
+    font-size: 16px;
 }
 
-.botaoError:hover {
+.botaoRedirecionar:hover {
     cursor: pointer;
     background-color: #06162e;
+}
+
+@media (max-width: 1300px) {
+    .error img {
+        width: 50%;
+    }
+
+    .botaoRedirecionar {
+        width: 180px;
+    }
+}
+
+@media (max-width: 900px) {
+    .error img {
+        width: 65%;
+    }
+}
+
+@media (max-width: 650px) {
+    .error {
+        width: 100%;
+    }
+
+    .error img {
+        width: 80%;
+    }
+
+    .error h1 {
+        font-size: 31px;
+    }
+}
+
+@media (max-width: 500px) {
+    .error img {
+        width: 100%;
+    }
+
+    .error div {
+        flex-direction: column;
+    }
 }

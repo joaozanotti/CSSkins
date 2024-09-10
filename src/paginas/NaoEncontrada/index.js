@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import estilos from './NaoEncontrada.module.css';
-import Header from '../../componentes/Header';
 import Main from '../../componentes/Main';
-import Footer from '../../componentes/Footer';
 
 function NaoEncontrada() {
     useEffect(() => { document.title = "CS SKINS | Erro 404"; }, []);
@@ -11,24 +9,27 @@ function NaoEncontrada() {
     const navegar = useNavigate();
 
     return (
-        <>
-            <Header linkAtivo=""/>
-            <Main>
-                <div className={estilos.error}>
-                    <img src="/images/react.png" alt="Sobre Nos"/>
-                    <div>
-                        <h1> Página não encontrada</h1>
-                        <p>
-                            Lamentavelmente não reconhecemos o link ou página que você deseja acessar. Favor revisar a página anterior.
-                        </p>  
-                        <button className={estilos.botaoError} onClick={() => navegar(-1)}>
-                            Voltar
-                        </button> 
-                    </div>
+        <Main>
+            <div className={estilos.error}>
+                <h1>Erro 404: Página não encontrada! 🕹️</h1>
+                <img src="/images/error.gif" alt="Sobre Nos"/>
+                <p>
+                    Tudo bem, erros acontecem. Talvez a página tenha sido movida, removida ou até mesmo nunca existiu.
+                    Não se preocupe, confira as opções abaixo para voltar à ação:
+                </p>
+                <div>
+                    <button className={estilos.botaoRedirecionar} onClick={() => navegar("/")}>
+                        Retornar ao lobby<br/>(Ir para a página inicial)
+                    </button>
+                    <button className={estilos.botaoRedirecionar} onClick={() => navegar(-1)}>
+                        Respawnar<br/>(Voltar à página anterior)
+                    </button>
+                    <button className={estilos.botaoRedirecionar} onClick={() => navegar("/skins")}>
+                        Abrir o inventário<br/>(Ver as skins)
+                    </button>
                 </div>
-            </Main>
-            <Footer autor="João Vitor"/>
-        </>      
+            </div>
+        </Main>
     )
 }
 
