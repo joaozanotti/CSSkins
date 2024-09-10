@@ -23,7 +23,7 @@ function Inicio() {
                     </p>
                     <button className={estilos.botaoSkins} onClick={() => navegar("/skins")}>Ver catálogo de skins ➜</button>
                 </div>
-                <img alt="Imagem do jogo CS2" src="https://assets.gamearena.gg/wp-content/uploads/2023/04/30004140/CS2-troca-de-tiro.jpg"/>
+                <img alt="Imagem do jogo CS2" src="/images/inicio.jpg"/>
             </div>
         </Main>
     );
