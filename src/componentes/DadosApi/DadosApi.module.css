@@ -1,6 +1,7 @@
 .listagem {
     display: flex;
     flex-direction: column;
+    padding: 50px 40px;
 }
 
 .loading {
@@ -36,7 +37,17 @@
 }
 
 @media (max-width: 600px) {
+    .listagem {
+        padding: 35px 30px;
+    }
+
     .botaoCarregar {
         margin-top: 40px;
+    }
+}
+  
+@media (max-width: 380px) {
+    .listagem {
+        padding: 25px 20px;
     }
 }

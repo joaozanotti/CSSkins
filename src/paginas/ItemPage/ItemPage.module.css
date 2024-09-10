@@ -3,6 +3,8 @@
     justify-content: center;   
     flex-direction: column;
     margin-bottom: 20px;
+    padding: 50px 40px;
+    height: 100%;
 }
 
 .loading {
@@ -226,6 +228,12 @@
     }
 }
 
+@media (max-width: 600px) {
+    .container {
+        padding: 35px 30px;
+    }
+}
+
 @media (max-width: 500px) {
     .skin {
         width: 100%;
@@ -242,5 +250,11 @@
 
     .info section {
         width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .container {
+        padding: 25px 20px;
     }
 }

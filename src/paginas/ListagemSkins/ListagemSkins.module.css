@@ -1,0 +1,10 @@
+.lista {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /*
+        modificar aqui para os itens ficarem no centro ou não
+        align-items: center;
+    */
+}

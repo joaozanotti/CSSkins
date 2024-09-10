@@ -11,6 +11,9 @@
     align-self: center;
     text-align: center;
     flex-wrap: wrap;
+    padding: 50px 40px;
+    height: 100%;
+    display: flex;
 }
 
 .error img {    
@@ -81,6 +84,12 @@
     }
 }
 
+@media (max-width: 600px) {
+    .error {
+        padding: 35px 30px;
+    }
+}
+
 @media (max-width: 500px) {
     .error img {
         width: 100%;
@@ -88,5 +97,11 @@
 
     .error div {
         flex-direction: column;
+    }
+}
+
+@media (max-width: 380px) {
+    .error {
+        padding: 25px 20px;
     }
 }

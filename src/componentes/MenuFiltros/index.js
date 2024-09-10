@@ -1,18 +1,8 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import estilos from "./MenuFiltros.module.css";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 function MenuFiltros(props) {
-    const [inputNome, setInputNome] = useState("");
-
-    const resetarPesquisa = () => {
-        setInputNome("");
-        props.setNome("");
-        props.setCategoria("");
-        props.setOrdenacao("alfabetica");
-        props.resetarQtdItens();
-    }
-
     const inputNameRef = useRef(null);
     const selectCatRef = useRef(null);
     const selectOrdRef = useRef(null);
@@ -25,7 +15,7 @@ function MenuFiltros(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        props.setNome(inputNome.trim());
+        props.setNome(props.inputNome.trim());
         props.resetarQtdItens();
         handleBlurAll();
     }
@@ -49,8 +39,8 @@ function MenuFiltros(props) {
             <section>
                 <form onSubmit={handleSubmit}>
                     <p>Nome da skin:</p>
-                    <input ref={inputNameRef} type="text" placeholder="Digite o nome..." value={inputNome} onChange={(e) => {
-                        setInputNome(e.target.value);
+                    <input ref={inputNameRef} type="text" placeholder="Digite o nome..." value={props.inputNome} onChange={(e) => {
+                        props.setInputNome(e.target.value);
                         if (e.target.key === "Enter") {
                             handleSubmit();
                         }
@@ -79,7 +69,7 @@ function MenuFiltros(props) {
                 </select>
             </section>
             <section>
-                <button className={estilos.botaoResetar} onClick={resetarPesquisa}>Resetar pesquisa</button>
+                <button className={estilos.botaoResetar} onClick={props.resetarPesquisa}>Resetar pesquisa</button>
             </section>
         </div>
     )

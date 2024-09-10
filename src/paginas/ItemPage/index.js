@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import estilos from './ItemPage.module.css';
 import NaoEncontrada from '../NaoEncontrada';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import Main from '../../componentes/Main';
 
 function ItemPage(props) {
     useEffect(() => {  document.title = "CS SKINS | Skins"; }, []);
@@ -46,66 +45,64 @@ function ItemPage(props) {
     console.log(post);
 
     return (
-        <Main>
-            <div className={estilos.container}>
-                    <button className={estilos.botaoVoltar} onClick={() => {
-                        props.resetarQtdItens();
-                        navegar(-1);
-                    }}><Icon icon="material-symbols:arrow-top-left-rounded"/></button>
-                <div className={estilos.item}>
-                    <div className={estilos.skin}>
-                        <h1>{post.name}</h1>
-                        <img src={post.image} alt="Skin"/>
-                        <p>{descricao}</p>
-                    </div>
-                    <div className={estilos.info}>
-                        <section>
-                            <p>Coleção:</p>
-                            {
-                                post.collections === undefined || post.collections.length === 0 ? <p className={estilos.description}>Sem coleção</p> : 
-                                post.collections.map((colecao, indice) => {
-                                    return (
-                                        <div key={colecao.id}>
-                                            <img alt="Logo da coleção" src={colecao.image} width="50px"/>
-                                            <p className={estilos.description} key={indice}>{colecao.name}</p>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </section>
-                        <section>
-                            <p>Caixas:</p>
-                            {
-                                post.crates === undefined || post.crates.length === 0 ? <p className={estilos.description}>Sem caixas</p> : 
-                                post.crates.map((caixa) => {
-                                    return (
-                                        <div key={caixa.id}>
-                                            <img alt="Logo da caixa" src={caixa.image} width="50px"/>
-                                            <p className={estilos.description}>{caixa.name}</p>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </section>
-                        <section>
-                            <p>Raridade:</p>
-                            <div className={estilos.rarity}>
-                                <p style={{color: post.rarity.color}}>{post.rarity.name}</p>
-                                <div style={{backgroundColor: post.rarity.color}} className={estilos.rarityColor}></div>
-                            </div>
-                        </section>
-                        <section>
-                            <p>Categoria:</p>
-                            <p className={estilos.description}>{post.category.name === null ? "Sem categoria" : post.category.name}</p>
-                        </section>
-                        <section>
-                            <p>Equipe:</p>
-                            <p className={estilos.description}>{post.team.name}</p>
-                        </section>
-                    </div>
+        <div className={estilos.container}>
+                <button className={estilos.botaoVoltar} onClick={() => {
+                    props.resetarQtdItens();
+                    navegar(-1);
+                }}><Icon icon="material-symbols:arrow-top-left-rounded"/></button>
+            <div className={estilos.item}>
+                <div className={estilos.skin}>
+                    <h1>{post.name}</h1>
+                    <img src={post.image} alt="Skin"/>
+                    <p>{descricao}</p>
+                </div>
+                <div className={estilos.info}>
+                    <section>
+                        <p>Coleção:</p>
+                        {
+                            post.collections === undefined || post.collections.length === 0 ? <p className={estilos.description}>Sem coleção</p> : 
+                            post.collections.map((colecao, indice) => {
+                                return (
+                                    <div key={colecao.id}>
+                                        <img alt="Logo da coleção" src={colecao.image} width="50px"/>
+                                        <p className={estilos.description} key={indice}>{colecao.name}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </section>
+                    <section>
+                        <p>Caixas:</p>
+                        {
+                            post.crates === undefined || post.crates.length === 0 ? <p className={estilos.description}>Sem caixas</p> : 
+                            post.crates.map((caixa) => {
+                                return (
+                                    <div key={caixa.id}>
+                                        <img alt="Logo da caixa" src={caixa.image} width="50px"/>
+                                        <p className={estilos.description}>{caixa.name}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </section>
+                    <section>
+                        <p>Raridade:</p>
+                        <div className={estilos.rarity}>
+                            <p style={{color: post.rarity.color}}>{post.rarity.name}</p>
+                            <div style={{backgroundColor: post.rarity.color}} className={estilos.rarityColor}></div>
+                        </div>
+                    </section>
+                    <section>
+                        <p>Categoria:</p>
+                        <p className={estilos.description}>{post.category.name === null ? "Sem categoria" : post.category.name}</p>
+                    </section>
+                    <section>
+                        <p>Equipe:</p>
+                        <p className={estilos.description}>{post.team.name}</p>
+                    </section>
                 </div>
             </div>
-        </Main>
+        </div>
     )
 }
 

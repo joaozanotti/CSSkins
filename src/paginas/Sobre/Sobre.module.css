@@ -4,11 +4,14 @@
     align-items: center;
     text-align: justify;
     align-self: center;
+    justify-self: center;
     gap: 30px;
     color: #fff;
     width: 90%;
     margin-top: 10px;
     margin-bottom: 10px;
+    padding: 50px 40px;
+    height: 100%;
 }
 
 .sobrenos img {    
@@ -40,6 +43,12 @@
     }
 }
 
+@media (max-width: 600px) {
+    .sobrenos {
+        padding: 35px 30px;
+    }
+}
+
 @media (max-width: 500px) {
     .sobrenos img {    
         width: 180px;
@@ -51,5 +60,11 @@
 
     .sobrenos h1 {
         font-size: 29px;
+    }
+}
+
+@media (max-width: 380px) {
+    .sobrenos {
+        padding: 25px 20px;
     }
 }
