@@ -42,8 +42,6 @@ function ItemPage(props) {
         }
     }
 
-    console.log(post);
-
     return (
         <div className={estilos.container}>
                 <button className={estilos.botaoVoltar} onClick={() => {

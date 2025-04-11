@@ -11,7 +11,7 @@ function DadosApi({vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, a
 
     const fetchData = async () => {
         try { 
-            const response = await fetch("https://bymykel.github.io/CSGO-API/api/pt-BR/skins.json");
+            const response = await fetch("https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/pt-BR/skins.json");
             const data = await response.json();
             setDados(data);
 
