@@ -5,9 +5,10 @@ import { ordenarPrecos } from "../DadosApi/functions";
 
 function Item(props) {
     const estiloBorda = "10px solid " + props.item.rarity.color;
-    let precosOrdenados = ordenarPrecos(props.item.wears);
 
+    let precosOrdenados = ordenarPrecos(props.item.wears);
     let precosOrdenadosEspecial = "";
+    
     if (props.item.wears_stattrak) {
         precosOrdenadosEspecial = ordenarPrecos(props.item.wears_stattrak);
     } else if (props.item.wears_souvenir) {
@@ -17,15 +18,36 @@ function Item(props) {
     if (precosOrdenados.length === 0) {
         precosOrdenados = `Sem preços disponíveis`;
     } else {
-        if (precosOrdenadosEspecial.length > 1) {
-            precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[precosOrdenadosEspecial.length-1].price.toFixed(2)} - R$${precosOrdenadosEspecial[0].price.toFixed(2)}`;
-        } else if (precosOrdenadosEspecial.length === 1) {
-            precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[0].price.toFixed(2)}`;
-        }
-        if (precosOrdenados.length > 1) {
-            precosOrdenados = `R$${precosOrdenados[precosOrdenados.length-1].price.toFixed(2)} - R$${precosOrdenados[0].price.toFixed(2)}`;
-        } else if (precosOrdenados.length === 1) {
-            precosOrdenados = `R$${precosOrdenados[0].price.toFixed(2)}`;
+        if (precosOrdenados && precosOrdenados[0].price === 0) {
+            if (precosOrdenados.length > 1) {
+                precosOrdenados = `R$${precosOrdenados[precosOrdenados.length-1].price.toFixed(2)} - R$${precosOrdenados[1].price.toFixed(2)}`;
+            } else if (precosOrdenados.length === 1) {
+                precosOrdenados = `R$${precosOrdenados[1].price.toFixed(2)}`;
+            }
+        } else {
+            if (precosOrdenados.length > 1) {
+                precosOrdenados = `R$${precosOrdenados[precosOrdenados.length-1].price.toFixed(2)} - R$${precosOrdenados[0].price.toFixed(2)}`;
+            } else if (precosOrdenados.length === 1) {
+                precosOrdenados = `R$${precosOrdenados[0].price.toFixed(2)}`;
+            }
+        } 
+    }
+
+    if (precosOrdenadosEspecial.length === 0) {
+        precosOrdenadosEspecial = `Sem preços disponíveis`;
+    } else {
+        if (precosOrdenadosEspecial && precosOrdenadosEspecial[0].price === 0) {
+            if (precosOrdenadosEspecial.length > 1) {
+                precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[precosOrdenadosEspecial.length-1].price.toFixed(2)} - R$${precosOrdenadosEspecial[1].price.toFixed(2)}`;
+            } else if (precosOrdenadosEspecial.length === 1) {
+                precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[1].price.toFixed(2)}`;
+            }
+        } else {
+            if (precosOrdenadosEspecial.length > 1) {
+                precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[precosOrdenadosEspecial.length-1].price.toFixed(2)} - R$${precosOrdenadosEspecial[0].price.toFixed(2)}`;
+            } else if (precosOrdenadosEspecial.length === 1) {
+                precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[0].price.toFixed(2)}`;
+            }
         }
     }
 
