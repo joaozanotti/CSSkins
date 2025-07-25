@@ -1,3 +1,65 @@
 .link {
     text-decoration: none;
 }
+
+.preco {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.precoEspecial {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #EA9406;
+}
+
+.divNome {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.divNome p {
+    color: white;
+    font-size: 14px;
+}
+
+.divNome h1 {
+    font-size: 24px;
+    text-transform: capitalize;
+    margin-top: 0px;
+}
+
+.divPrecos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.divPrecos p {
+    font-size: 18px;
+}
+
+.divColecao {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+}
+
+.divColecao p {
+    color: white;
+    font-size: 14px;
+}
+
+.divColecao img {
+    width: 40px;
+    margin-right: 1px;
+}

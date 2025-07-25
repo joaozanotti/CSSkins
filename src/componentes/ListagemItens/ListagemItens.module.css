@@ -32,12 +32,11 @@
     border: 1px solid #5e5e5e;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     text-align: center;
-    width: 250px;
-    border-radius: 20px;
-    min-height: 255px;
+    width: 325px;
+    min-height: 400px;
 }
 
 .carrossel ul li:hover {
@@ -51,16 +50,15 @@
     transition: 150ms;
 }
 
-.carrossel ul li div:nth-child(2) {
+.carrossel ul li div {
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-top: 20px;
 }
 
 .carrossel ul li img {
-    max-width: 150px;
+    max-width: 250px;
 }
 
 .carrossel ul li a {
@@ -72,12 +70,14 @@
 }
 
 .carrossel ul li h1 {
-    font-size: 18px;    
-    margin: 0;
+    font-size: 19px;
+    text-transform: capitalize;
+    margin-top: 0px;
 }
 
 .carrossel ul li p {
-    color: #ffffff;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 @media (max-width: 600px) {
@@ -93,5 +93,11 @@
 @media (max-width: 380px) {
     .carrossel h1 {
         font-size: 28px;
+    }
+}
+
+@media (max-width: 330px) {
+    .carrossel ul li {
+        width: 300px;
     }
 }
