@@ -8,7 +8,7 @@ function Item(props) {
 
     let precosOrdenados = ordenarPrecos(props.item.wears);
     let precosOrdenadosEspecial = "";
-    
+
     if (props.item.wears_stattrak) {
         precosOrdenadosEspecial = ordenarPrecos(props.item.wears_stattrak);
     } else if (props.item.wears_souvenir) {
@@ -34,7 +34,7 @@ function Item(props) {
     }
 
     if (precosOrdenadosEspecial.length === 0) {
-        precosOrdenadosEspecial = `Sem preços disponíveis`;
+        precosOrdenadosEspecial = "";
     } else {
         if (precosOrdenadosEspecial && precosOrdenadosEspecial[0].price === 0) {
             if (precosOrdenadosEspecial.length > 1) {
