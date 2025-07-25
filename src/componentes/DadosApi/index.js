@@ -60,12 +60,38 @@ function DadosApi({vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, a
     }
 
     const associarPrecos = () => {
-        const result = dados.map(dado => ({
-            ...dado,
-            wears: dado.wears ? dado.wears.map(wear => {
-                const key = `${dado.name} (${wear.name})`;
+        const result = dados.map(dado => {
+            let wears;
+
+            if (dado.wears) {
+                wears = dado.wears
+                ? dado.wears.map((wear) => {
+                    const key = `${dado.name} (${wear.name})`;
+                    const priceInfo = precos.find(p => p.name === key);
+
+                    let price = 0;
+                    if (priceInfo) {
+                        const precoSteam = priceInfo.steam;
+                        const ultimoPreco =
+                            precoSteam.last_24h ??
+                            precoSteam.last_7d ??
+                            precoSteam.last_30d ??
+                            precoSteam.last_90d ??
+                            precoSteam.last_ever ?? null;
+
+                        price = ultimoPreco * euro;
+                    }
+
+                    return {
+                        ...wear,
+                        price
+                    };
+                })
+                : [];
+            } else {
+                const key = `${dado.name}`;
                 const priceInfo = precos.find(p => p.name === key);
-                
+
                 let price = 0;
                 if (priceInfo) {
                     const precoSteam = priceInfo.steam;
@@ -74,81 +100,120 @@ function DadosApi({vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, a
                         precoSteam.last_7d ??
                         precoSteam.last_30d ??
                         precoSteam.last_90d ??
-                        precoSteam.last_ever;
+                        precoSteam.last_ever ?? null;
 
                     price = ultimoPreco * euro;
                 }
 
                 return {
-                    ...wear,
-                    price
-                };
-            }) : dado.wears
-        }));
+                    ...dado,
+                    wears: [{
+                        id: `SFUI_InvTooltip_Wear_Amount_0`,
+                        name: `Vanilla`,
+                        price
+                    }]
+                }
+            }
+            
+            return {
+                ...dado,
+                wears: wears
+            };
+        });
 
         const resultStatTrak = result.map(dado => {
             if (dado.stattrak) {
                 let stattrakWears;
 
-                if (dado.name.indexOf("★") === -1) {
-                    stattrakWears = dado.wears
-                    ? dado.wears.map((wear, index) => {
-                        const key = `StatTrak™ ${dado.name} (${wear.name})`;
-                        const priceInfo = precos.find(p => p.name === key);
+                if (dado.wears[0].name !== "Vanilla") {
+                    if (dado.name.indexOf("★") === -1) {
+                        stattrakWears = dado.wears
+                        ? dado.wears.map((wear, index) => {
+                            const key = `StatTrak™ ${dado.name} (${wear.name})`;
+                            const priceInfo = precos.find(p => p.name === key);
 
-                        let price = 0;
-                        if (priceInfo) {
-                            const precoSteam = priceInfo.steam;
-                            const ultimoPreco =
-                                precoSteam.last_24h ??
-                                precoSteam.last_7d ??
-                                precoSteam.last_30d ??
-                                precoSteam.last_90d ??
-                                precoSteam.last_ever;
+                            let price = 0;
+                            if (priceInfo) {
+                                const precoSteam = priceInfo.steam;
+                                const ultimoPreco =
+                                    precoSteam.last_24h ??
+                                    precoSteam.last_7d ??
+                                    precoSteam.last_30d ??
+                                    precoSteam.last_90d ??
+                                    precoSteam.last_ever ?? null;
 
-                            price = ultimoPreco * euro;
-                        }
+                                price = ultimoPreco * euro;
+                            }
 
-                        return {
-                            id: `SFUI_InvTooltip_Wear_Amount_${index + 5}`,
-                            name: `StatTrak™ ${wear.name}`,
-                            price
-                        };
-                    })
-                    : [];
+                            return {
+                                id: `SFUI_InvTooltip_Wear_Amount_${index + 5}`,
+                                name: `StatTrak™ ${wear.name}`,
+                                price
+                            };
+                        })
+                        : [];
+                    } else {
+                        stattrakWears = dado.wears
+                        ? dado.wears.map((wear, index) => {
+                            const nomeSemEstrela = dado.name.replace("★ ", "").trim();
+                            const key = `★ StatTrak™ ${nomeSemEstrela} (${wear.name})`;
+                            
+                            const priceInfo = precos.find(p => p.name === key);
+
+                            let price = 0;
+                            if (priceInfo) {
+                                const precoSteam = priceInfo.steam;
+                                const ultimoPreco =
+                                    precoSteam.last_24h ??
+                                    precoSteam.last_7d ??
+                                    precoSteam.last_30d ??
+                                    precoSteam.last_90d ??
+                                    precoSteam.last_ever ?? null;
+
+                                price = ultimoPreco * euro;
+                            }
+
+                            return {
+                                id: `SFUI_InvTooltip_Wear_Amount_${index + 5}`,
+                                name: `StatTrak™ ${wear.name}`,
+                                price
+                            };
+                        })
+                        : [];
+                    }
+                    
+                    return {
+                        ...dado,
+                        wears_stattrak: stattrakWears
+                    };
                 } else {
-                    const nomeSemEstrela = dado.name.replace("★ ", "");
-                    stattrakWears = dado.wears
-                    ? dado.wears.map((wear, index) => {
-                        const key = `★ StatTrak™ ${nomeSemEstrela} (${wear.name})`;
-                        const priceInfo = precos.find(p => p.name === key);
+                    const nomeSemEstrela = dado.name.replace("★ ", "").trim();
+                    const key = `★ StatTrak™ ${nomeSemEstrela}`;
+                    const priceInfo = precos.find(p => p.name === key);
 
-                        let price = 0;
-                        if (priceInfo) {
-                            const precoSteam = priceInfo.steam;
-                            const ultimoPreco =
-                                precoSteam.last_24h ??
-                                precoSteam.last_7d ??
-                                precoSteam.last_30d ??
-                                precoSteam.last_90d ??
-                                precoSteam.last_ever;
+                    let price = 0;
+                    if (priceInfo) {
+                        const precoSteam = priceInfo.steam;
+                        const ultimoPreco =
+                            precoSteam.last_24h ??
+                            precoSteam.last_7d ??
+                            precoSteam.last_30d ??
+                            precoSteam.last_90d ??
+                            precoSteam.last_ever ?? null;
 
-                            price = ultimoPreco * euro;
-                        }
+                        price = ultimoPreco * euro;
+                    }
 
-                        return {
-                            id: `SFUI_InvTooltip_Wear_Amount_${index + 5}`,
-                            name: `StatTrak™ ${wear.name}`,
+                    return {
+                        ...dado,
+                        wears_stattrak: [{
+                            id: `SFUI_InvTooltip_Wear_Amount_5`,
+                            name: `StatTrak™ Vanilla`,
                             price
-                        };
-                    })
-                    : [];
+                        }]
+                    }
                 }
                 
-                return {
-                    ...dado,
-                    wears_stattrak: stattrakWears
-                };
             } else {
                 return dado;
             }
@@ -169,7 +234,7 @@ function DadosApi({vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, a
                                 precoSteam.last_7d ??
                                 precoSteam.last_30d ??
                                 precoSteam.last_90d ??
-                                precoSteam.last_ever;
+                                precoSteam.last_ever ?? null;
 
                             price = ultimoPreco * euro;
                         }

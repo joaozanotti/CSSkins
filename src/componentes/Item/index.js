@@ -17,10 +17,16 @@ function Item(props) {
     if (precosOrdenados.length === 0) {
         precosOrdenados = `Sem preços disponíveis`;
     } else {
-        if (precosOrdenadosEspecial.length > 0) {
+        if (precosOrdenadosEspecial.length > 1) {
             precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[precosOrdenadosEspecial.length-1].price.toFixed(2)} - R$${precosOrdenadosEspecial[0].price.toFixed(2)}`;
+        } else if (precosOrdenadosEspecial.length === 1) {
+            precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[0].price.toFixed(2)}`;
         }
-        precosOrdenados = `R$${precosOrdenados[precosOrdenados.length-1].price.toFixed(2)} - R$${precosOrdenados[0].price.toFixed(2)}`;
+        if (precosOrdenados.length > 1) {
+            precosOrdenados = `R$${precosOrdenados[precosOrdenados.length-1].price.toFixed(2)} - R$${precosOrdenados[0].price.toFixed(2)}`;
+        } else if (precosOrdenados.length === 1) {
+            precosOrdenados = `R$${precosOrdenados[0].price.toFixed(2)}`;
+        }
     }
 
     return (
