@@ -98,13 +98,13 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
             let wears_souvenir = null;
             if (dado.souvenir) {
                 wears_souvenir = wears.map((wear, index) => {
-                    nomeKey = dado.name;
+                    nomeKey = `Souvenir ${dado.name}`;
                     wearKey = ` (${wear.name})`;
 
                     return {
                         id: `SFUI_InvTooltip_Wear_Amount_${index + 10}`,
                         name: `Souvenir ${wear.name}`,
-                        price: pegarPreco(precos[`Souvenir ${nomeKey}${wearKey}`]?.steam)
+                        price: pegarPreco(precos[`${nomeKey}${wearKey}`]?.steam)
                     }
                 });
             }

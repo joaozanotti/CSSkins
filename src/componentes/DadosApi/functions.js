@@ -47,6 +47,76 @@ export const verificarRaridade = (raridade) => {
     return numRaridade;
 }
 
+export const verificarDesgaste = (desgaste) => {
+    let numDesgaste = 0;
+    switch (desgaste) {
+        case "SFUI_InvTooltip_Wear_Amount_0":
+            numDesgaste = 1;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_1":
+            numDesgaste = 2;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_2":
+            numDesgaste = 3;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_3":
+            numDesgaste = 4;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_4":
+            numDesgaste = 5;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_5":
+            numDesgaste = 6;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_6":
+            numDesgaste = 7;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_7":
+            numDesgaste = 8;
+            break;
+        
+        case "SFUI_InvTooltip_Wear_Amount_8":
+            numDesgaste = 9;
+            break;
+        
+        case "SFUI_InvTooltip_Wear_Amount_9":
+            numDesgaste = 10;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_10":
+            numDesgaste = 11;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_11":
+            numDesgaste = 12;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_12":
+            numDesgaste = 13;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_13":
+            numDesgaste = 14;
+            break;
+
+        case "SFUI_InvTooltip_Wear_Amount_14":
+            numDesgaste = 15;
+            break;
+    
+        default:
+            numDesgaste = 0;
+            break;
+    }
+    return numDesgaste;
+}
+
 export const ordenarPorMenorRaridade = (array) => {
     const filtroOrdenacao = array.sort((a, b) => {
         if (verificarRaridade(a.rarity.id) < verificarRaridade(b.rarity.id)) {
@@ -94,4 +164,16 @@ export const ordenarPrecos = (array) => {
         return 0;
     }) : [];
     return ordenacaoPrecos;
+}
+
+export const ordenarDesgaste = (array) => {
+    const ordenacaoDesgaste = array.sort((a, b) => {
+        if (verificarDesgaste(a.id) > verificarDesgaste(b.id)) {
+            return 1;
+        } else if (verificarDesgaste(a.id) < verificarDesgaste(b.id)) {
+            return -1;
+        }
+        return 0;
+    });
+    return ordenacaoDesgaste;
 }

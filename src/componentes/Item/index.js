@@ -6,6 +6,9 @@ import { ordenarPrecos } from "../DadosApi/functions";
 function Item(props) {
     const estiloBorda = "10px solid " + props.item.rarity.color;
 
+    const nomeArma = props.item.name.split(" | ")[0];
+    const patternArma = props.item.pattern ? props.item.pattern.name : "Vanilla";
+
     let precosOrdenados = ordenarPrecos(props.item.wears);
     let precosOrdenadosEspecial = "";
 
@@ -55,8 +58,8 @@ function Item(props) {
         <Link to={`/skins/${props.item.id}`} className={estilos.link}>
             <li style={{borderBottom: estiloBorda}}>
                 <div className={estilos.divNome}>
-                    <p>{props.item.weapon.name}</p>
-                    <h1>{props.item.pattern ? props.item.pattern.name : "Vanilla"}</h1>
+                    <p>{nomeArma}</p>
+                    <h1>{patternArma}</h1>
                 </div>
                 <div>
                     <img alt='Skin' src={props.item.image}/>

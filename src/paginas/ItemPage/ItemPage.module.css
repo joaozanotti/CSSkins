@@ -16,19 +16,20 @@
 .item {
     display: flex;
     justify-content: center;
-    gap: 50px;
+    gap: 25px;
 }
 
 .skin {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 50%;
+    width: 40%;
+    height: fit-content;
     background-color: #292929;
     color: #fff;
     border: 2px solid #5e5e5e;
     padding: 20px;
-    max-height: 750px;
+    max-height: 650px;
     gap: 25px;
 }
 
@@ -38,7 +39,7 @@
 }
 
 .skin img {    
-    width: 60%;
+    width: 70%;
     align-self: center;
 }
 
@@ -66,7 +67,7 @@
     height: 60px;
     border: 0;
     margin-bottom: 10px;
-    margin-left: 8%;
+    margin-left: 5.5%;
     font-size: 40px;
     align-self: start;
     transition: 150ms;
@@ -77,12 +78,82 @@
     color: #a8a8a8;
 }
 
+.prices {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 20%;
+    height: fit-content;
+    background-color: #292929;
+    color: #fff;
+    border: 2px solid #5e5e5e;
+    gap: 20px;
+    max-height: 650px;
+}
+
+.prices section {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.prices div:hover {
+    cursor: pointer;
+    transition: 150ms;
+    background-color: rgb(20, 20, 20);
+}
+
+.prices div:not(:hover) {
+    transition: 150ms;
+}
+
+.prices div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: justify;
+    gap: 10px;
+    width: 100%;
+    padding-inline: 20px;
+    padding-block: 15px;
+}
+
+.titleSection {
+    padding: 15px;
+}
+
+.rarity {
+    display: flex;
+    flex-direction: column;
+}
+
+.rarityColor {
+    width: 180px;
+    height: 10px;
+}
+
+.description {
+    color: #fff;
+}
+
+.descriptionNormal {
+    color: #d8d8d8;
+}
+
+.descriptionSpecial {
+    color: #EA9406;
+}
+
 .info {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 25%;
+    height: fit-content;
     background-color: #292929;
     color: #fff;
     border: 2px solid #5e5e5e;
@@ -120,20 +191,6 @@
     gap: 10px;
 }
 
-.rarity {
-    display: flex;
-    flex-direction: column;
-}
-
-.rarityColor {
-    width: 180px;
-    height: 10px;
-}
-
-.description {
-    color: #d8d8d8;
-}
-
 @media (max-width: 1400px) {
     .skin {
         max-height: 600px;
@@ -151,11 +208,15 @@
 
     .skin {
         max-height: 550px;
-        width: 60%;
+        width: 50%;
     }
 
     .info {
-        width: 40%;
+        width: 25%;
+    }
+
+    .prices {
+        width: 25%;
     }
 
     .info section {
@@ -194,6 +255,10 @@
     .info section {
         width: 75%;
     }
+
+    .prices {
+        width: 50%;
+    }
 }
 
 @media (max-width: 800px) {
@@ -202,6 +267,10 @@
     }
 
     .info section {
+        width: 60%;
+    }
+
+    .prices section {
         width: 90%;
     }
 }
@@ -220,6 +289,10 @@
     }
 
     .info {
+        width: 100%;
+    }
+
+    .prices {
         width: 100%;
     }
 }
@@ -245,6 +318,10 @@
     }
 
     .info section {
+        width: 100%;
+    }
+
+    .prices section {
         width: 100%;
     }
 }

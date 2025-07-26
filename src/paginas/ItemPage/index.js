@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import estilos from './ItemPage.module.css';
 import NaoEncontrada from '../NaoEncontrada';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { ordenarDesgaste } from '../../componentes/DadosApi/functions';
 
 function ItemPage(props) {
     useEffect(() => {  document.title = "CS SKINS | Skins"; }, []);
@@ -17,7 +18,6 @@ function ItemPage(props) {
 
     const post = props.vetSkins.find(elemento => elemento.id === parametros.id);
     let descricao;
-    console.log(post);
     
     if (!post) {
         return <NaoEncontrada/>;
@@ -36,11 +36,19 @@ function ItemPage(props) {
             // Pegando a string: depois do \n\n<i> até antes do </i>
             const fimDescricao = post.description.slice(posInicioStrIndesejada+3, posFimStrIndesejada);
             // Montando a string completa
-            descricao = inicioDescricao + " " + fimDescricao + ".";
+            descricao = <> {inicioDescricao} <br/><br/> {fimDescricao}. </>;
 
         } else {
             descricao = post.description;
         }
+    }
+
+    let desgastesOrdenados = ordenarDesgaste(post.wears);
+    let desgastesOrdenadosEspecial = "";
+    if (post.wears_stattrak) {
+        desgastesOrdenadosEspecial = ordenarDesgaste(post.wears_stattrak);
+    } else if (post.wears_souvenir) {
+        desgastesOrdenadosEspecial = ordenarDesgaste(post.wears_souvenir);
     }
 
     return (
@@ -54,6 +62,44 @@ function ItemPage(props) {
                     <h1>{post.name}</h1>
                     <img src={post.image} alt="Skin"/>
                     <p>{descricao}</p>
+                </div>
+                <div className={estilos.prices}>
+                    <section>
+                        <p className={estilos.titleSection}>Preços:</p>
+                        {
+                            post.wears === null || post.wears.length === 0 ? "" : 
+                            desgastesOrdenados.map((wear, index) => {
+                                return (
+                                    <div key={wear.id}>
+                                        <p className={estilos.descriptionNormal} key={index}>{wear.name}</p>
+                                        <p className={estilos.description} key={index+1}>{wear.price !== 0 ? `R$${wear.price.toFixed(2)}` : ""}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                        {
+                            post.wears_stattrak === null || post.wears_stattrak.length === 0 ? "" : 
+                            desgastesOrdenadosEspecial.map((wear, index) => {
+                                return (
+                                    <div key={wear.id}>
+                                        <p className={estilos.descriptionSpecial} key={index}>{wear.name}</p>
+                                        <p className={estilos.description} key={index+1}>{wear.price !== 0 ? `R$${wear.price.toFixed(2)}` : ""}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                        {
+                            post.wears_souvenir === null || post.wears_souvenir.length === 0 ? "" : 
+                            desgastesOrdenadosEspecial.map((wear, index) => {
+                                return (
+                                    <div key={wear.id}>
+                                        <p className={estilos.descriptionSpecial} key={index}>{wear.name}</p>
+                                        <p className={estilos.description} key={index+1}>{wear.price !== 0 ? `R$${wear.price.toFixed(2)}` : ""}</p>
+                                    </div>
+                                )
+                            })
+                        }
+                    </section>
                 </div>
                 <div className={estilos.info}>
                     <section>
@@ -90,14 +136,6 @@ function ItemPage(props) {
                             <p style={{color: post.rarity.color}}>{post.rarity.name}</p>
                             <div style={{backgroundColor: post.rarity.color}} className={estilos.rarityColor}></div>
                         </div>
-                    </section>
-                    <section>
-                        <p>Categoria:</p>
-                        <p className={estilos.description}>{post.category.name === null ? "Sem categoria" : post.category.name}</p>
-                    </section>
-                    <section>
-                        <p>Equipe:</p>
-                        <p className={estilos.description}>{post.team.name}</p>
                     </section>
                 </div>
             </div>
