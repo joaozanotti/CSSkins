@@ -143,8 +143,12 @@
     color: #d8d8d8;
 }
 
-.descriptionSpecial {
-    color: #EA9406;
+.descriptionStattrak {
+    color: #eb7333ff;
+}
+
+.descriptionSouvenir {
+    color: #FFD700;
 }
 
 .info {
@@ -189,6 +193,24 @@
     align-items: center;
     text-align: justify;
     gap: 10px;
+}
+
+@media (max-width: 1650px) {
+    .skin {
+        width: 45%;
+    }
+
+    .prices {
+        width: 25%;
+    }
+
+    .info {
+        width: 30%;
+    }
+
+    .botaoVoltar {
+        margin-left: 0;
+    }
 }
 
 @media (max-width: 1400px) {

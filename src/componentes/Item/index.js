@@ -11,11 +11,14 @@ function Item(props) {
 
     let precosOrdenados = ordenarPrecos(props.item.wears);
     let precosOrdenadosEspecial = "";
+    let precoEspecial = "";
 
     if (props.item.wears_stattrak) {
         precosOrdenadosEspecial = ordenarPrecos(props.item.wears_stattrak);
+        precoEspecial = "#eb7333ff";
     } else if (props.item.wears_souvenir) {
         precosOrdenadosEspecial = ordenarPrecos(props.item.wears_souvenir);
+        precoEspecial = "#FFD700";
     }
 
     if (precosOrdenados.length === 0) {
@@ -66,7 +69,7 @@ function Item(props) {
                 </div>
                 <div className={estilos.divPrecos}>
                     <p className={estilos.preco}> {precosOrdenados}</p>
-                    {precosOrdenadosEspecial ? <p className={estilos.precoEspecial}> {precosOrdenadosEspecial}</p> : ""}
+                    {precosOrdenadosEspecial ? <p className={estilos.precoEspecial} style={{color: precoEspecial}}>{precosOrdenadosEspecial}</p> : ""}
                 </div>
                 <div className={estilos.divColecao}>
                 {

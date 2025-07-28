@@ -82,7 +82,7 @@ function ItemPage(props) {
                             desgastesOrdenadosEspecial.map((wear, index) => {
                                 return (
                                     <div key={wear.id}>
-                                        <p className={estilos.descriptionSpecial} key={index}>{wear.name}</p>
+                                        <p className={estilos.descriptionStattrak} key={index}>{wear.name}</p>
                                         <p className={estilos.description} key={index+1}>{wear.price !== 0 ? `R$${wear.price.toFixed(2)}` : ""}</p>
                                     </div>
                                 )
@@ -93,7 +93,7 @@ function ItemPage(props) {
                             desgastesOrdenadosEspecial.map((wear, index) => {
                                 return (
                                     <div key={wear.id}>
-                                        <p className={estilos.descriptionSpecial} key={index}>{wear.name}</p>
+                                        <p className={estilos.descriptionSouvenir} key={index}>{wear.name}</p>
                                         <p className={estilos.description} key={index+1}>{wear.price !== 0 ? `R$${wear.price.toFixed(2)}` : ""}</p>
                                     </div>
                                 )
