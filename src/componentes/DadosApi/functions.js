@@ -155,7 +155,8 @@ export const ordenarPorNome = (array) => {
 }
 
 export const ordenarPrecos = (array) => {
-    const ordenacaoPrecos = array ? array.sort((a, b) => {
+    const precosSemZero = array ? array.filter((item) => item.price !== 0) : [];
+    const ordenacaoPrecos = precosSemZero ? precosSemZero.sort((a, b) => {
         if (a.price < b.price) {
             return -1;
         } else if (a.price > b.price) {

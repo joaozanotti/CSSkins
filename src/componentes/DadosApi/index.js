@@ -7,12 +7,12 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, aumentarQtdItens }) {
     const [dados, setDados] = useState([]);
     const [precos, setPrecos] = useState([]);
-    const [euro, setEuro] = useState(null);
+    const [dolar, setDolar] = useState(null);
 
     useEffect(() => {
         fetchData();
         fetchPrices();
-        fetchEuro();
+        fetchDolar();
     }, []);
 
     const fetchData = async () => {
@@ -27,7 +27,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
 
     const fetchPrices = async () => {
         try {
-            const response = await fetch("https://raw.githubusercontent.com/ByMykel/counter-strike-price-tracker/main/static/prices/latest.json");
+            const response = await fetch("https://raw.githubusercontent.com/ByMykel/counter-strike-price-tracker/refs/heads/main/static/latest.json");
             const data = await response.json();
             setPrecos(data);
         } catch (error) {
@@ -35,23 +35,28 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
         }
     };
 
-    const fetchEuro = async () => {
+    const fetchDolar = async () => {
         try {
-            const response = await fetch("https://api.frankfurter.app/latest?from=EUR&to=BRL");
+            const response = await fetch("https://api.frankfurter.app/latest?from=USD&to=BRL");
             const data = await response.json();
-            setEuro(data.rates.BRL);
+            setDolar(data.rates.BRL);
         } catch (error) {
             console.error('Erro ao buscar dados da API:', error);
         }
     };
 
-    const pegarPreco = (steam) => (
-        (steam?.last_24h ?? steam?.last_7d ?? steam?.last_30d ?? steam?.last_90d ?? steam?.last_ever ?? 0) * (euro || 0)
-    );
+    const pegarPreco = (nome) => {
+        let preco = precos?.prices?.[nome];
+        if (preco === undefined) {
+            return 0;
+        } else {
+            return (preco / 100) * dolar;
+        }
+    };
 
     // Associação de preços + stattrak + souvenir
     const itensComPrecos = useMemo(() => {
-        if (!dados.length || !Object.keys(precos).length || euro === null) return [];
+        if (!dados.length || !Object.keys(precos).length || dolar === null) return [];
 
         return dados.map(dado => {
             let nomeKey;
@@ -65,7 +70,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
                     wearKey = ` (${wear.name})`;
                     return {
                         ...wear,
-                        price: pegarPreco(precos[`${nomeKey}${wearKey}`]?.steam)
+                        price: pegarPreco(`${nomeKey}${wearKey}`)
                     }
                 });
 
@@ -75,7 +80,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
                     wearKey = "";
                     return {
                         ...wear,
-                        price: pegarPreco(precos[`${nomeKey}${wearKey}`]?.steam)
+                        price: pegarPreco(`${nomeKey}${wearKey}`)
                     }
                 });
             }
@@ -90,7 +95,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
                     return {
                         id: `SFUI_InvTooltip_Wear_Amount_${index + 5}`,
                         name: `StatTrak™ ${wear.name}`,
-                        price: pegarPreco(precos[`${nomeKey}${wearKey}`]?.steam)
+                        price: pegarPreco(`${nomeKey}${wearKey}`)
                     };
                 })
             }
@@ -104,7 +109,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
                     return {
                         id: `SFUI_InvTooltip_Wear_Amount_${index + 10}`,
                         name: `Souvenir ${wear.name}`,
-                        price: pegarPreco(precos[`${nomeKey}${wearKey}`]?.steam)
+                        price: pegarPreco(`${nomeKey}${wearKey}`)
                     }
                 });
             }
@@ -117,7 +122,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
             };
         });
     // eslint-disable-next-line
-    }, [dados, precos, euro]);
+    }, [dados, precos, dolar]);
 
     // Filtro e ordenação com memorização
     const itensFiltrados = useMemo(() => {
