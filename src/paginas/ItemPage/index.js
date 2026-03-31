@@ -65,7 +65,7 @@ function ItemPage(props) {
                 </div>
                 <div className={estilos.prices}>
                     <section>
-                        <p className={estilos.titleSection}>Preços:</p>
+                        <p className={estilos.titleSection}>Desgastes e Preços:</p>
                         {
                             post.wears === null || post.wears.length === 0 ? "" : 
                             desgastesOrdenados.map((wear, index) => {
