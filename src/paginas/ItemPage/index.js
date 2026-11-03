@@ -1,9 +1,29 @@
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import estilos from './ItemPage.module.css';
 import NaoEncontrada from '../NaoEncontrada';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { ordenarDesgaste } from '../../componentes/DadosApi/functions';
+
+function formatarDescricao(description = '') {
+    return description.split(/(<i>[\s\S]*?<\/i>)/gi).map((parte, indiceParte) => {
+        const ehItalico = /^<i>[\s\S]*<\/i>$/i.test(parte);
+        const texto = parte
+            .replace(/^<i>|<\/i>$/gi, '')
+            .replace(/\\"/g, '"');
+
+        const conteudo = texto.split(/\\n|\r?\n/).map((linha, indiceLinha) => (
+            <Fragment key={indiceLinha}>
+                {indiceLinha > 0 && <br />}
+                {linha}
+            </Fragment>
+        ));
+
+        return ehItalico
+            ? <em key={indiceParte}>{conteudo}</em>
+            : <Fragment key={indiceParte}>{conteudo}</Fragment>;
+    });
+}
 
 function ItemPage(props) {
     useEffect(() => {  document.title = "CS SKINS | Skins"; }, []);
@@ -17,31 +37,11 @@ function ItemPage(props) {
     const parametros = useParams();
 
     const post = props.vetSkins.find(elemento => elemento.id === parametros.id);
-    let descricao;
-    
     if (!post) {
         return <NaoEncontrada/>;
-
-    } else {
-        // A descrição de alguns itens da API vêm com alguns elementos html indesejados que atrapalham na exibição
-        // Estes são: "\n\n<i>" no meio da string e "</i>" no final da string
-
-        // Pegando a posição dos elementos para localizá-los e depois removê-los
-        const posInicioStrIndesejada = post.description.indexOf("<i>");
-        const posFimStrIndesejada = post.description.indexOf("</i>");
-        
-        if (posInicioStrIndesejada !== -1) {
-            // Pegando a string: do início até antes do \n\n<i>
-            const inicioDescricao = post.description.slice(0, posInicioStrIndesejada-4);
-            // Pegando a string: depois do \n\n<i> até antes do </i>
-            const fimDescricao = post.description.slice(posInicioStrIndesejada+3, posFimStrIndesejada);
-            // Montando a string completa
-            descricao = <> {inicioDescricao} <br/><br/> {fimDescricao}. </>;
-
-        } else {
-            descricao = post.description;
-        }
     }
+
+    const descricao = formatarDescricao(post.description);
 
     let desgastesOrdenados = ordenarDesgaste(post.wears);
     let desgastesOrdenadosStattrak = null;
