@@ -37,9 +37,9 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
 
     const fetchDolar = async () => {
         try {
-            const response = await fetch("https://api.frankfurter.app/latest?from=USD&to=BRL");
+            const response = await fetch("https://api.frankfurter.dev/v2/rate/usd/brl");
             const data = await response.json();
-            setDolar(data.rates.BRL);
+            setDolar(data.rate);
         } catch (error) {
             console.error('Erro ao buscar dados da API:', error);
         }

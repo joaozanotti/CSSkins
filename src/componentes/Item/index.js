@@ -10,15 +10,18 @@ function Item(props) {
     const patternArma = props.item.pattern ? props.item.pattern.name : "Vanilla";
 
     let precosOrdenados = ordenarPrecos(props.item.wears);
-    let precosOrdenadosEspecial = "";
-    let precoEspecial = "";
+    let precosOrdenadosStattrak = "";
+    let precosOrdenadosSouvenir = "";
+    let precoStattrak = "";
+    let precoSouvenir = "";
 
     if (props.item.wears_stattrak) {
-        precosOrdenadosEspecial = ordenarPrecos(props.item.wears_stattrak);
-        precoEspecial = "#eb7333ff";
-    } else if (props.item.wears_souvenir) {
-        precosOrdenadosEspecial = ordenarPrecos(props.item.wears_souvenir);
-        precoEspecial = "#FFD700";
+        precosOrdenadosStattrak = ordenarPrecos(props.item.wears_stattrak);
+        precoStattrak = "#eb7333ff";
+    }
+    if (props.item.wears_souvenir) {
+        precosOrdenadosSouvenir = ordenarPrecos(props.item.wears_souvenir);
+        precoSouvenir = "#FFD700";
     }
 
     if (precosOrdenados.length === 0) {
@@ -39,27 +42,45 @@ function Item(props) {
         } 
     }
 
-    if (precosOrdenadosEspecial.length === 0) {
-        precosOrdenadosEspecial = "";
+    if (precosOrdenadosStattrak.length === 0) {
+        precosOrdenadosStattrak = "";
     } else {
-        if (precosOrdenadosEspecial && precosOrdenadosEspecial[0].price === 0) {
-            if (precosOrdenadosEspecial.length > 1) {
-                precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[precosOrdenadosEspecial.length-1].price.toFixed(2)} - R$${precosOrdenadosEspecial[1].price.toFixed(2)}`;
-            } else if (precosOrdenadosEspecial.length === 1) {
-                precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[1].price.toFixed(2)}`;
+        if (precosOrdenadosStattrak && precosOrdenadosStattrak[0].price === 0) {
+            if (precosOrdenadosStattrak.length > 1) {
+                precosOrdenadosStattrak = `R$${precosOrdenadosStattrak[precosOrdenadosStattrak.length-1].price.toFixed(2)} - R$${precosOrdenadosStattrak[1].price.toFixed(2)}`;
+            } else if (precosOrdenadosStattrak.length === 1) {
+                precosOrdenadosStattrak = `R$${precosOrdenadosStattrak[1].price.toFixed(2)}`;
             }
         } else {
-            if (precosOrdenadosEspecial.length > 1) {
-                precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[precosOrdenadosEspecial.length-1].price.toFixed(2)} - R$${precosOrdenadosEspecial[0].price.toFixed(2)}`;
-            } else if (precosOrdenadosEspecial.length === 1) {
-                precosOrdenadosEspecial = `R$${precosOrdenadosEspecial[0].price.toFixed(2)}`;
+            if (precosOrdenadosStattrak.length > 1) {
+                precosOrdenadosStattrak = `R$${precosOrdenadosStattrak[precosOrdenadosStattrak.length-1].price.toFixed(2)} - R$${precosOrdenadosStattrak[0].price.toFixed(2)}`;
+            } else if (precosOrdenadosStattrak.length === 1) {
+                precosOrdenadosStattrak = `R$${precosOrdenadosStattrak[0].price.toFixed(2)}`;
+            }
+        }
+    }
+
+    if (precosOrdenadosSouvenir.length === 0) {
+        precosOrdenadosSouvenir = "";
+    } else {
+        if (precosOrdenadosSouvenir && precosOrdenadosSouvenir[0].price === 0) {
+            if (precosOrdenadosSouvenir.length > 1) {
+                precosOrdenadosSouvenir = `R$${precosOrdenadosSouvenir[precosOrdenadosSouvenir.length-1].price.toFixed(2)} - R$${precosOrdenadosSouvenir[1].price.toFixed(2)}`;
+            } else if (precosOrdenadosSouvenir.length === 1) {
+                precosOrdenadosSouvenir = `R$${precosOrdenadosSouvenir[1].price.toFixed(2)}`;
+            }
+        } else {
+            if (precosOrdenadosSouvenir.length > 1) {
+                precosOrdenadosSouvenir = `R$${precosOrdenadosSouvenir[precosOrdenadosSouvenir.length-1].price.toFixed(2)} - R$${precosOrdenadosSouvenir[0].price.toFixed(2)}`;
+            } else if (precosOrdenadosSouvenir.length === 1) {
+                precosOrdenadosSouvenir = `R$${precosOrdenadosSouvenir[0].price.toFixed(2)}`;
             }
         }
     }
 
     return (
         <Link to={`/skins/${props.item.id}`} className={estilos.link}>
-            <li style={{borderBottom: estiloBorda}}>
+            <li style={{borderBottom: estiloBorda}} className={estilos.item}>
                 <div className={estilos.divNome}>
                     <p>{nomeArma}</p>
                     <h1>{patternArma}</h1>
@@ -69,7 +90,8 @@ function Item(props) {
                 </div>
                 <div className={estilos.divPrecos}>
                     <p className={estilos.preco}> {precosOrdenados}</p>
-                    {precosOrdenadosEspecial ? <p className={estilos.precoEspecial} style={{color: precoEspecial}}>{precosOrdenadosEspecial}</p> : ""}
+                    {precosOrdenadosStattrak ? <p className={estilos.precoEspecial} style={{color: precoStattrak}}>{precosOrdenadosStattrak}</p> : ""}
+                    {precosOrdenadosSouvenir ? <p className={estilos.precoEspecial} style={{color: precoSouvenir}}>{precosOrdenadosSouvenir}</p> : ""}
                 </div>
                 <div className={estilos.divColecao}>
                 {

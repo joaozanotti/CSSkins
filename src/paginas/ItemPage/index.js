@@ -18,6 +18,7 @@ function ItemPage(props) {
 
     const post = props.vetSkins.find(elemento => elemento.id === parametros.id);
     let descricao;
+    console.log(post);
     
     if (!post) {
         return <NaoEncontrada/>;
@@ -44,11 +45,13 @@ function ItemPage(props) {
     }
 
     let desgastesOrdenados = ordenarDesgaste(post.wears);
-    let desgastesOrdenadosEspecial = "";
+    let desgastesOrdenadosStattrak = null;
+    let desgastesOrdenadosSouvenir = null;
     if (post.wears_stattrak) {
-        desgastesOrdenadosEspecial = ordenarDesgaste(post.wears_stattrak);
-    } else if (post.wears_souvenir) {
-        desgastesOrdenadosEspecial = ordenarDesgaste(post.wears_souvenir);
+        desgastesOrdenadosStattrak = ordenarDesgaste(post.wears_stattrak);
+    }
+    if (post.wears_souvenir) {
+        desgastesOrdenadosSouvenir = ordenarDesgaste(post.wears_souvenir);
     }
 
     return (
@@ -79,7 +82,7 @@ function ItemPage(props) {
                         }
                         {
                             post.wears_stattrak === null || post.wears_stattrak.length === 0 ? "" : 
-                            desgastesOrdenadosEspecial.map((wear, index) => {
+                            desgastesOrdenadosStattrak.map((wear, index) => {
                                 return (
                                     <div key={wear.id}>
                                         <p className={estilos.descriptionStattrak} key={index}>{wear.name}</p>
@@ -90,7 +93,7 @@ function ItemPage(props) {
                         }
                         {
                             post.wears_souvenir === null || post.wears_souvenir.length === 0 ? "" : 
-                            desgastesOrdenadosEspecial.map((wear, index) => {
+                            desgastesOrdenadosSouvenir.map((wear, index) => {
                                 return (
                                     <div key={wear.id}>
                                         <p className={estilos.descriptionSouvenir} key={index}>{wear.name}</p>
