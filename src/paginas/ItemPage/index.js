@@ -18,7 +18,6 @@ function ItemPage(props) {
 
     const post = props.vetSkins.find(elemento => elemento.id === parametros.id);
     let descricao;
-    console.log(post);
     
     if (!post) {
         return <NaoEncontrada/>;
