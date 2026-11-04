@@ -6,8 +6,11 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, aumentarQtdItens }) {
     const [dados, setDados] = useState([]);
-    const [precos, setPrecos] = useState([]);
+    const [precos, setPrecos] = useState(null);
     const [dolar, setDolar] = useState(null);
+    const [statusDados, setStatusDados] = useState("carregando");
+    const [statusPrecos, setStatusPrecos] = useState("carregando");
+    const [statusDolar, setStatusDolar] = useState("carregando");
 
     useEffect(() => {
         fetchData();
@@ -18,9 +21,13 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
     const fetchData = async () => {
         try {
             const response = await fetch("https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json");
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
+            if (!Array.isArray(data)) throw new Error("Resposta de skins inválida");
             setDados(data);
+            setStatusDados("sucesso");
         } catch (error) {
+            setStatusDados("erro");
             console.error('Erro ao buscar dados da API:', error);
         }
     };
@@ -28,35 +35,53 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
     const fetchPrices = async () => {
         try {
             const response = await fetch("https://raw.githubusercontent.com/ByMykel/counter-strike-price-tracker/refs/heads/main/static/latest.json");
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
+            if (!data?.prices || typeof data.prices !== "object") throw new Error("Resposta de preços inválida");
             setPrecos(data);
+            setStatusPrecos("sucesso");
         } catch (error) {
+            setStatusPrecos("erro");
             console.error('Erro ao buscar preços da API:', error);
         }
     };
 
+    /* 
+        APIs de cotação do dólar
+        https://economia.awesomeapi.com.br/json/last/USD-BRL
+        https://api.frankfurter.dev/v1/latest?from=USD&to=BRL
+    */
+
     const fetchDolar = async () => {
         try {
-            const response = await fetch("https://api.frankfurter.dev/v2/rate/usd/brl");
+            const response = await fetch("https://api.frankfurter.dev/v1/latest?from=USD&to=BRL");
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
-            setDolar(data.rate);
+            if (!isFinite(data.rates.BRL)) throw new Error("Cotação do dólar inválida");
+            setDolar(data.rates.BRL);
+            setStatusDolar("sucesso");
         } catch (error) {
+            setStatusDolar("erro");
             console.error('Erro ao buscar dados da API:', error);
         }
     };
 
     const pegarPreco = (nome) => {
-        let preco = precos?.prices?.[nome];
+        const preco = precos?.prices?.[nome];
         if (preco === undefined) {
             return 0;
-        } else {
-            return (preco / 100) * dolar;
         }
+
+        const precoEmDolar = preco / 100;
+        return statusDolar === "sucesso" ? precoEmDolar * dolar : precoEmDolar;
     };
 
     // Associação de preços + stattrak + souvenir
     const itensComPrecos = useMemo(() => {
-        if (!dados.length || !Object.keys(precos).length || dolar === null) return [];
+        if (statusDados !== "sucesso") return [];
+        
+        const precosDisponiveis = statusPrecos === "sucesso" && statusDolar !== "carregando";
+        const moeda = statusDolar === "sucesso" ? "R$" : "US$";
 
         return dados.map(dado => {
             let nomeKey;
@@ -91,7 +116,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
                     const nomeSemEstrela = dado.name.replace("★ ", "").trim();
                     nomeKey = dado.name.includes("★") ? `★ StatTrak™ ${nomeSemEstrela}` : `StatTrak™ ${dado.name}`;
                     wearKey = wear.name !== "Vanilla" ? ` (${wear.name})` : "";
-                    
+
                     return {
                         id: `SFUI_InvTooltip_Wear_Amount_${index + 5}`,
                         name: `StatTrak™ ${wear.name}`,
@@ -118,11 +143,13 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
                 ...dado,
                 wears,
                 wears_stattrak,
-                wears_souvenir
+                wears_souvenir,
+                precosDisponiveis,
+                moeda
             };
         });
     // eslint-disable-next-line
-    }, [dados, precos, dolar]);
+    }, [dados, precos, dolar, statusDados, statusPrecos, statusDolar]);
 
     // Filtro e ordenação com memorização
     const itensFiltrados = useMemo(() => {
@@ -145,17 +172,22 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
     return (
         <div className={estilos.listagem}>
             <ListagemItens skins={vetSkins}/>
-            { 
-                nome === "" && idCategoria === "" && vetSkins.length === 0 ? 
+            {
+                statusDados === "erro" ?
+                <p className={estilos.msgErro}>Erro ao buscar skins.</p> : ""
+            }
+            {
+                statusDados === "carregando" && nome === "" && idCategoria === "" && vetSkins.length === 0 ?
                 <p className={estilos.loading}><Icon icon="eos-icons:loading"/></p> : ""
             }
-            { 
-                (nome !== "" || idCategoria !== "") && vetSkins.length === 0 ? 
-                <p className={estilos.msgErro}>Nenhuma skin encontrada.</p> : "" 
+            {
+                statusDados !== "erro" && (nome !== "" || idCategoria !== "") && vetSkins.length === 0 ?
+                <p className={estilos.msgErro}>Nenhuma skin encontrada.</p> : ""
             }
-            { 
-                vetSkins.length < qtdItens ? "" : 
-                <button className={estilos.botaoCarregar} onClick={aumentarQtdItens}>Carregar mais...</button> 
+            {
+                statusDados === "sucesso" && vetSkins.length >= qtdItens ?
+                <button className={estilos.botaoCarregar} onClick={aumentarQtdItens}>Carregar mais...</button>
+                : ""
             }
         </div>
     );

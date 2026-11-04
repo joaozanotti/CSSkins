@@ -41,11 +41,15 @@ function ItemPage(props) {
         return <NaoEncontrada/>;
     }
 
+    const exibirPrecos = post.precosDisponiveis;
+    const moeda = post.moeda || "R$";
     const descricao = formatarDescricao(post.description);
 
+    // Ordenando os desgastes para exibição de acordo com o ID
     let desgastesOrdenados = ordenarDesgaste(post.wears);
-    let desgastesOrdenadosStattrak = null;
-    let desgastesOrdenadosSouvenir = null;
+    let desgastesOrdenadosStattrak = [];
+    let desgastesOrdenadosSouvenir = [];
+
     if (post.wears_stattrak) {
         desgastesOrdenadosStattrak = ordenarDesgaste(post.wears_stattrak);
     }
@@ -69,34 +73,34 @@ function ItemPage(props) {
                     <section>
                         <p className={estilos.titleSection}>Desgastes e Preços:</p>
                         {
-                            post.wears === null || post.wears.length === 0 ? "" : 
+                            post.wears === null || post.wears.length === 0 ? "" :
                             desgastesOrdenados.map((wear, index) => {
                                 return (
                                     <div key={wear.id}>
                                         <p className={estilos.descriptionNormal} key={index}>{wear.name}</p>
-                                        <p className={estilos.description} key={index+1}>{wear.price !== 0 ? `R$${wear.price.toFixed(2)}` : ""}</p>
+                                        <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
                                     </div>
                                 )
                             })
                         }
                         {
-                            post.wears_stattrak === null || post.wears_stattrak.length === 0 ? "" : 
+                            post.wears_stattrak === null || post.wears_stattrak.length === 0 ? "" :
                             desgastesOrdenadosStattrak.map((wear, index) => {
                                 return (
                                     <div key={wear.id}>
                                         <p className={estilos.descriptionStattrak} key={index}>{wear.name}</p>
-                                        <p className={estilos.description} key={index+1}>{wear.price !== 0 ? `R$${wear.price.toFixed(2)}` : ""}</p>
+                                        <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
                                     </div>
                                 )
                             })
                         }
                         {
-                            post.wears_souvenir === null || post.wears_souvenir.length === 0 ? "" : 
+                            post.wears_souvenir === null || post.wears_souvenir.length === 0 ? "" :
                             desgastesOrdenadosSouvenir.map((wear, index) => {
                                 return (
                                     <div key={wear.id}>
                                         <p className={estilos.descriptionSouvenir} key={index}>{wear.name}</p>
-                                        <p className={estilos.description} key={index+1}>{wear.price !== 0 ? `R$${wear.price.toFixed(2)}` : ""}</p>
+                                        <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
                                     </div>
                                 )
                             })
@@ -107,7 +111,7 @@ function ItemPage(props) {
                     <section>
                         <p>Coleção:</p>
                         {
-                            post.collections === undefined || post.collections.length === 0 ? <p className={estilos.description}>Sem coleção</p> : 
+                            post.collections === undefined || post.collections.length === 0 ? <p className={estilos.description}>Sem coleção</p> :
                             post.collections.map((colecao, indice) => {
                                 return (
                                     <div key={colecao.id}>
@@ -121,7 +125,7 @@ function ItemPage(props) {
                     <section>
                         <p>Caixas:</p>
                         {
-                            post.crates === undefined || post.crates.length === 0 ? <p className={estilos.description}>Sem caixas</p> : 
+                            post.crates === undefined || post.crates.length === 0 ? <p className={estilos.description}>Sem caixas</p> :
                             post.crates.map((caixa) => {
                                 return (
                                     <div key={caixa.id}>
