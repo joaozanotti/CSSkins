@@ -32,7 +32,7 @@ function Item(props) {
 
     // Formatando os preços para exibição
     if (precosOrdenados.length === 0) {
-        precosOrdenados = "Sem preços disponíveis";
+        precosOrdenados = "";
 
     } else if (precosOrdenados.length > 1) {
         precosOrdenados =
@@ -79,7 +79,9 @@ function Item(props) {
                 </div>
                 {temPrecos &&
                     <div className={estilos.divPrecos}>
-                        <p className={estilos.preco}> {precosOrdenados}</p>
+                        {precosOrdenados === "" && precosOrdenadosStattrak === "" && precosOrdenadosSouvenir === "" ? 
+                        <p className={estilos.preco}>Sem preços disponíveis</p> : ""}
+                        {precosOrdenados ? <p className={estilos.preco}> {precosOrdenados}</p> : ""}
                         {precosOrdenadosStattrak ? <p className={estilos.precoEspecial} style={{color: corPrecoStattrak}}>{precosOrdenadosStattrak}</p> : ""}
                         {precosOrdenadosSouvenir ? <p className={estilos.precoEspecial} style={{color: corPrecoSouvenir}}>{precosOrdenadosSouvenir}</p> : ""}
                     </div>

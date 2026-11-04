@@ -168,8 +168,9 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
     }, [itensComPrecos, nome, idCategoria, ordenacao]);
 
     useEffect(() => {
-        if (statusDados !== "sucesso") return;
-        setSkins(itensFiltrados.slice(0, qtdItens));
+        if (statusDados === "sucesso") {
+            setSkins(itensFiltrados.slice(0, qtdItens));
+        };
     }, [itensFiltrados, qtdItens, setSkins, statusDados]);
 
     const temMaisItens = statusDados === "sucesso" && vetSkins.length > 0 && vetSkins.length < itensFiltrados.length;
@@ -180,17 +181,18 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
     }, [qtdItens]);
 
     useEffect(() => {
-        if (!podeCarregarMais || !marcadorCarregamento.current) return;
+        if (podeCarregarMais && marcadorCarregamento.current) {
+            const observador = new IntersectionObserver(([entrada]) => {
+                if (entrada.isIntersecting && !carregandoMais.current) {
+                    carregandoMais.current = true;
+                    aumentarQtdItens();
+                }
+            }, { rootMargin: "0px 0px 500px 0px" });
 
-        const observador = new IntersectionObserver(([entrada]) => {
-            if (!entrada.isIntersecting || carregandoMais.current) return;
-
-            carregandoMais.current = true;
-            aumentarQtdItens();
-        }, { rootMargin: "0px 0px 500px 0px" });
-
-        observador.observe(marcadorCarregamento.current);
-        return () => observador.disconnect();
+            observador.observe(marcadorCarregamento.current);
+            return () => observador.disconnect();
+        };
+        
     }, [aumentarQtdItens, qtdItens, podeCarregarMais]);
 
     return (
