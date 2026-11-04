@@ -3,12 +3,15 @@ import NaoEncontrada from './paginas/NaoEncontrada';
 import ItemPage from './paginas/ItemPage';
 import estilos from './App.module.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import ListagemSkins from './paginas/ListagemSkins';
 import Header from './componentes/Header';
 import Footer from './componentes/Footer';
 import Inicio from './paginas/Inicio';
 import Main from './componentes/Main';
+import BotaoVoltarTopo from './componentes/BotaoVoltarTopo';
+
+const QTD_PADRAO_ITENS = 50;
 
 function App() {
   const [vetSkins, setSkins] = useState([]);
@@ -16,8 +19,8 @@ function App() {
   const [inputNome, setInputNome] = useState("");
   const [idCategoria, setCategoria] = useState("");
   const [ordenacao, setOrdenacao] = useState("alfabetica");
-  const qtdPadraoItens = 50;
-  const [qtdItens, setQtdItens] = useState(qtdPadraoItens);
+  const [qtdItens, setQtdItens] = useState(QTD_PADRAO_ITENS);
+  const [posicaoRolagemListagem, setPosicaoRolagemListagem] = useState(null);
 
   const resetarPesquisa = () => {
     setInputNome("");
@@ -27,12 +30,21 @@ function App() {
     resetarQtdItens();
   }
 
-  const aumentarQtdItens = () => {
-    setQtdItens(qtdItens + qtdPadraoItens);        
-  }
+  const aumentarQtdItens = useCallback(() => {
+    setQtdItens((qtdAtual) => qtdAtual + QTD_PADRAO_ITENS);
+  }, []);
+
   const resetarQtdItens = () => {
-    setQtdItens(qtdPadraoItens);
+    setQtdItens(QTD_PADRAO_ITENS);
   }
+
+  const salvarPosicaoRolagemListagem = useCallback(() => {
+    setPosicaoRolagemListagem(window.scrollY);
+  }, []);
+
+  const restaurarRolagemListagem = useCallback(() => {
+    setPosicaoRolagemListagem(null);
+  }, []);
 
   return (
     <div className={estilos.container}>
@@ -44,21 +56,25 @@ function App() {
             <Route path="/skins" element={
               <ListagemSkins
                 vetSkins={vetSkins} setSkins={setSkins}
-                nome={nome} setNome={setNome} 
+                nome={nome} setNome={setNome}
                 inputNome={inputNome} setInputNome={setInputNome}
                 idCategoria={idCategoria} setCategoria={setCategoria}
                 ordenacao={ordenacao} setOrdenacao={setOrdenacao}
                 qtdItens={qtdItens} setQtdItens={setQtdItens}
                 aumentarQtdItens={aumentarQtdItens} resetarQtdItens={resetarQtdItens}
                 resetarPesquisa={resetarPesquisa}
+                posicaoRolagem={posicaoRolagemListagem}
+                restaurarRolagem={restaurarRolagemListagem}
+                salvarPosicaoRolagem={salvarPosicaoRolagemListagem}
               />
             }/>
             <Route path="/sobre" element={<Sobre/>}/>
-            <Route path="/skins/:id" element={<ItemPage vetSkins={vetSkins} resetarQtdItens={resetarQtdItens}/>}/>
+            <Route path="/skins/:id" element={<ItemPage vetSkins={vetSkins}/>}/>
             <Route path="/*" element={<NaoEncontrada/>}/>
           </Routes>
         </Main>
         <Footer autor="João Vitor"/>
+        <BotaoVoltarTopo resetarQtdItens={resetarQtdItens}/>
       </BrowserRouter>
     </div>
   )

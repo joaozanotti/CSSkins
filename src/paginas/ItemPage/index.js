@@ -60,7 +60,6 @@ function ItemPage(props) {
     return (
         <div className={estilos.container}>
                 <button className={estilos.botaoVoltar} onClick={() => {
-                    props.resetarQtdItens();
                     navegar(-1);
                 }}><Icon icon="material-symbols:arrow-top-left-rounded"/></button>
             <div className={estilos.item}>

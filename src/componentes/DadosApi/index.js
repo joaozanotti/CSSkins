@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef } from 'react';
 import ListagemItens from '../ListagemItens';
 import { filtrarPorNome, filtrarPorCategoria, ordenarPorNome, ordenarPorMaiorRaridade, ordenarPorMenorRaridade } from "./functions";
 import estilos from "./DadosApi.module.css";
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, aumentarQtdItens }) {
+function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, aumentarQtdItens, salvarPosicaoRolagem }) {
     const [dados, setDados] = useState([]);
     const [precos, setPrecos] = useState(null);
     const [dolar, setDolar] = useState(null);
     const [statusDados, setStatusDados] = useState("carregando");
     const [statusPrecos, setStatusPrecos] = useState("carregando");
     const [statusDolar, setStatusDolar] = useState("carregando");
+    const marcadorCarregamento = useRef(null);
+    const carregandoMais = useRef(false);
 
     useEffect(() => {
         fetchData();
@@ -46,7 +48,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
         }
     };
 
-    /* 
+    /*
         APIs de cotação do dólar
         https://economia.awesomeapi.com.br/json/last/USD-BRL
         https://api.frankfurter.dev/v1/latest?from=USD&to=BRL
@@ -79,7 +81,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
     // Associação de preços + stattrak + souvenir
     const itensComPrecos = useMemo(() => {
         if (statusDados !== "sucesso") return [];
-        
+
         const precosDisponiveis = statusPrecos === "sucesso" && statusDolar !== "carregando";
         const moeda = statusDolar === "sucesso" ? "R$" : "US$";
 
@@ -166,12 +168,34 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
     }, [itensComPrecos, nome, idCategoria, ordenacao]);
 
     useEffect(() => {
+        if (statusDados !== "sucesso") return;
         setSkins(itensFiltrados.slice(0, qtdItens));
-    }, [itensFiltrados, qtdItens, setSkins]);
+    }, [itensFiltrados, qtdItens, setSkins, statusDados]);
+
+    const temMaisItens = statusDados === "sucesso" && vetSkins.length > 0 && vetSkins.length < itensFiltrados.length;
+    const podeCarregarMais = temMaisItens && vetSkins.length >= qtdItens;
+
+    useEffect(() => {
+        carregandoMais.current = false;
+    }, [qtdItens]);
+
+    useEffect(() => {
+        if (!podeCarregarMais || !marcadorCarregamento.current) return;
+
+        const observador = new IntersectionObserver(([entrada]) => {
+            if (!entrada.isIntersecting || carregandoMais.current) return;
+
+            carregandoMais.current = true;
+            aumentarQtdItens();
+        }, { rootMargin: "0px 0px 500px 0px" });
+
+        observador.observe(marcadorCarregamento.current);
+        return () => observador.disconnect();
+    }, [aumentarQtdItens, qtdItens, podeCarregarMais]);
 
     return (
         <div className={estilos.listagem}>
-            <ListagemItens skins={vetSkins}/>
+            <ListagemItens skins={vetSkins} salvarPosicaoRolagem={salvarPosicaoRolagem}/>
             {
                 statusDados === "erro" ?
                 <p className={estilos.msgErro}>Erro ao buscar skins.</p> : ""
@@ -184,11 +208,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
                 statusDados !== "erro" && (nome !== "" || idCategoria !== "") && vetSkins.length === 0 ?
                 <p className={estilos.msgErro}>Nenhuma skin encontrada.</p> : ""
             }
-            {
-                statusDados === "sucesso" && vetSkins.length >= qtdItens ?
-                <button className={estilos.botaoCarregar} onClick={aumentarQtdItens}>Carregar mais...</button>
-                : ""
-            }
+            {podeCarregarMais && <div ref={marcadorCarregamento} className={estilos.marcadorCarregamento} aria-hidden="true"/>}
         </div>
     );
 }

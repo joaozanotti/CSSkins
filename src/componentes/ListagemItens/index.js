@@ -8,7 +8,7 @@ function ListagemItens(props) {
             <h1>Listagem de skins</h1>
             <ul>
                 {props.skins.map((skin) => (
-                    <Item key={skin.id} item={skin}/>
+                    <Item key={skin.id} item={skin} salvarPosicaoRolagem={props.salvarPosicaoRolagem}/>
                 ))}
             </ul>
         </div>

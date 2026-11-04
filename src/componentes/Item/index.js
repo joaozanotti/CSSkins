@@ -35,8 +35,8 @@ function Item(props) {
         precosOrdenados = "Sem preços disponíveis";
 
     } else if (precosOrdenados.length > 1) {
-        precosOrdenados = 
-        `${moeda}${precosOrdenados[precosOrdenados.length-1].price.toFixed(2)} - 
+        precosOrdenados =
+        `${moeda}${precosOrdenados[precosOrdenados.length-1].price.toFixed(2)} -
         ${moeda}${precosOrdenados[0].price.toFixed(2)}`;
 
     } else {
@@ -48,8 +48,8 @@ function Item(props) {
         precosOrdenadosStattrak = "";
 
     } else if (precosOrdenadosStattrak.length > 1) {
-        precosOrdenadosStattrak = 
-        `${moeda}${precosOrdenadosStattrak[precosOrdenadosStattrak.length-1].price.toFixed(2)} - 
+        precosOrdenadosStattrak =
+        `${moeda}${precosOrdenadosStattrak[precosOrdenadosStattrak.length-1].price.toFixed(2)} -
         ${moeda}${precosOrdenadosStattrak[0].price.toFixed(2)}`;
 
     } else {
@@ -60,15 +60,15 @@ function Item(props) {
     if (precosOrdenadosSouvenir.length === 0) {
         precosOrdenadosSouvenir = "";
     } else if (precosOrdenadosSouvenir.length > 1) {
-        precosOrdenadosSouvenir = 
-        `${moeda}${precosOrdenadosSouvenir[precosOrdenadosSouvenir.length-1].price.toFixed(2)} - 
+        precosOrdenadosSouvenir =
+        `${moeda}${precosOrdenadosSouvenir[precosOrdenadosSouvenir.length-1].price.toFixed(2)} -
         ${moeda}${precosOrdenadosSouvenir[0].price.toFixed(2)}`;
     } else {
         precosOrdenadosSouvenir = `${moeda}${precosOrdenadosSouvenir[0].price.toFixed(2)}`;
     }
 
     return (
-        <Link to={`/skins/${props.item.id}`} className={estilos.link}>
+        <Link to={`/skins/${props.item.id}`} className={estilos.link} onClick={props.salvarPosicaoRolagem}>
             <li style={{borderBottom: estiloBorda}} className={estilos.item}>
                 <div className={estilos.divNome}>
                     <p>{nomeArma}</p>
