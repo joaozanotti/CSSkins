@@ -69,40 +69,52 @@ function ItemPage(props) {
                     <p>{descricao}</p>
                 </div>
                 <div className={estilos.prices}>
-                    <section>
-                        <p className={estilos.titleSection}>Desgastes e Preços:</p>
+                    <p className={estilos.titleSection}>Desgastes e Preços:</p>
+                    <section className={estilos.section}>
                         {
                             post.wears === null || post.wears.length === 0 ? "" :
-                            desgastesOrdenados.map((wear, index) => {
-                                return (
-                                    <div key={wear.id}>
-                                        <p className={estilos.descriptionNormal} key={index}>{wear.name}</p>
-                                        <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
-                                    </div>
-                                )
-                            })
+                            <div className={estilos.desgastes}>
+                                {
+                                    desgastesOrdenados.map((wear, index) => {
+                                        return (
+                                            <div key={wear.id}>
+                                                <p className={estilos.descriptionNormal} key={index}>{wear.name}</p>
+                                                <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         }
                         {
                             post.wears_stattrak === null || post.wears_stattrak.length === 0 ? "" :
-                            desgastesOrdenadosStattrak.map((wear, index) => {
-                                return (
-                                    <div key={wear.id}>
-                                        <p className={estilos.descriptionStattrak} key={index}>{wear.name}</p>
-                                        <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
-                                    </div>
-                                )
-                            })
+                            <div className={estilos.desgastes}>
+                                {
+                                    desgastesOrdenadosStattrak.map((wear, index) => {
+                                        return (
+                                            <div key={wear.id}>
+                                                <p className={estilos.descriptionStattrak} key={index}>{wear.name}</p>
+                                                <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         }
                         {
                             post.wears_souvenir === null || post.wears_souvenir.length === 0 ? "" :
-                            desgastesOrdenadosSouvenir.map((wear, index) => {
-                                return (
-                                    <div key={wear.id}>
-                                        <p className={estilos.descriptionSouvenir} key={index}>{wear.name}</p>
-                                        <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
-                                    </div>
-                                )
-                            })
+                            <div className={estilos.desgastes}>
+                                {
+                                    desgastesOrdenadosSouvenir.map((wear, index) => {
+                                        return (
+                                            <div key={wear.id}>
+                                                <p className={estilos.descriptionSouvenir} key={index}>{wear.name}</p>
+                                                <p className={estilos.description} key={index+1}>{exibirPrecos && wear.price !== 0 ? `${moeda}${wear.price.toFixed(2)}` : ""}</p>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
                         }
                     </section>
                 </div>

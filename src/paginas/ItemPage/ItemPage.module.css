@@ -88,26 +88,7 @@
     background-color: #292929;
     color: #fff;
     border: 2px solid #5e5e5e;
-    gap: 20px;
-    max-height: 810px;
-}
-
-.prices section {
-    min-width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.prices div:hover {
-    cursor: pointer;
-    transition: 150ms;
-    background-color: rgb(20, 20, 20);
-}
-
-.prices div:not(:hover) {
-    transition: 150ms;
+    max-height: 900px;
 }
 
 .prices div {
@@ -115,14 +96,36 @@
     align-items: center;
     justify-content: space-between;
     text-align: justify;
-    gap: 10px;
+    flex-direction: column;
     width: 100%;
-    padding-inline: 20px;
-    padding-block: 15px;
+}
+
+.section {
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.desgastes div {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 20px;
+}
+
+.desgastes div:hover {
+    cursor: pointer;
+    transition: 150ms;
+    background-color: rgb(20, 20, 20);
+}
+
+.desgastes div:not(:hover) {
+    transition: 150ms;
 }
 
 .titleSection {
-    padding: 15px;
+    padding: 20px;
 }
 
 .rarity {
@@ -218,12 +221,16 @@
         max-height: 600px;
     }
 
+    .prices {
+        width: 30%;
+    }
+
     .skin img {
         width: 70%;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1250px) {
     .botaoVoltar {
         margin-left: 0;
     }
@@ -233,12 +240,16 @@
         width: 50%;
     }
 
-    .info {
-        width: 25%;
+    .prices {
+        width: 35%;
     }
 
-    .prices {
-        width: 25%;
+    .desgastes div {
+        padding: 13px 16px;
+    }
+
+    .info {
+        width: 30%;
     }
 
     .info section {
@@ -246,7 +257,7 @@
     }
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1150px) {
     .container {
         align-items: center;
     }
@@ -263,11 +274,19 @@
 
     .skin {
         width: 90%;
-        max-height: 600px;
+        max-height: 650px;
     }
 
     .skin img {
         width: 60%;
+    }
+
+    .prices {
+        width: 50%;
+    }
+
+    .desgastes div {
+        padding: 15px 20px;
     }
 
     .info {
@@ -276,10 +295,6 @@
 
     .info section {
         width: 75%;
-    }
-
-    .prices {
-        width: 50%;
     }
 }
 
@@ -297,7 +312,7 @@
     }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 700px) {
     .botaoVoltar {
         margin-left: 0;
     }
