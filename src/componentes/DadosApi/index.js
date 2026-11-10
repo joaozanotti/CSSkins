@@ -14,9 +14,18 @@ function DadosApi({ vetSkins, setSkins, dataAtualizacao, setDataAtualizacao, nom
     const marcadorCarregamento = useRef(null);
     const carregandoMais = useRef(false);
 
+    const linkDataAPI = "https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json";
+    const linkPricesAPI = "https://raw.githubusercontent.com/ByMykel/counter-strike-price-tracker/refs/heads/main/static/latest.json";
+    const linkDolarAPI = "https://api.frankfurter.dev/v1/latest?from=USD&to=BRL";
+    /*
+        APIs de cotação do dólar
+        https://economia.awesomeapi.com.br/json/last/USD-BRL
+        https://api.frankfurter.dev/v1/latest?from=USD&to=BRL
+    */
+
     const fetchData = async () => {
         try {
-            const response = await fetch("https://raw.githubusercontent.com/ByMykel/CSGO-API/main/public/api/en/skins.json");
+            const response = await fetch(linkDataAPI);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
             if (!Array.isArray(data)) throw new Error("Resposta de skins inválida");
@@ -31,7 +40,7 @@ function DadosApi({ vetSkins, setSkins, dataAtualizacao, setDataAtualizacao, nom
 
     const fetchPrices = useCallback(async () => {
         try {
-            const response = await fetch("https://raw.githubusercontent.com/ByMykel/counter-strike-price-tracker/refs/heads/main/static/latest.json");
+            const response = await fetch(linkPricesAPI);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
             if (!data?.prices || typeof data.prices !== "object") throw new Error("Resposta de preços inválida");
@@ -45,15 +54,9 @@ function DadosApi({ vetSkins, setSkins, dataAtualizacao, setDataAtualizacao, nom
         }
     }, [setDataAtualizacao]);
 
-    /*
-        APIs de cotação do dólar
-        https://economia.awesomeapi.com.br/json/last/USD-BRL
-        https://api.frankfurter.dev/v1/latest?from=USD&to=BRL
-    */
-
     const fetchDolar = async () => {
         try {
-            const response = await fetch("https://api.frankfurter.dev/v1/latest?from=USD&to=BRL");
+            const response = await fetch(linkDolarAPI);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
             if (!isFinite(data.rates.BRL)) throw new Error("Cotação do dólar inválida");
