@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useLayoutEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import estilos from './ItemPage.module.css';
 import NaoEncontrada from '../NaoEncontrada';
@@ -28,13 +28,12 @@ function formatarDescricao(description = '') {
 function ItemPage(props) {
     useEffect(() => {  document.title = "CS SKINS | Skins"; }, []);
 
-    window.scrollTo({
-        top: 0,
-        left: 0
-    });
-
     const navegar = useNavigate();
     const parametros = useParams();
+
+    useLayoutEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    }, [parametros.id]);
 
     const post = props.vetSkins.find(elemento => elemento.id === parametros.id);
     if (!post) {

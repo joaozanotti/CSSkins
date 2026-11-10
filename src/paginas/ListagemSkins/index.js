@@ -6,6 +6,8 @@ import estilos from "./ListagemSkins.module.css";
 function ListagemSkins({
     vetSkins,
     setSkins,
+    dataAtualizacao,
+    setDataAtualizacao,
     nome,
     setNome,
     inputNome,
@@ -27,15 +29,11 @@ function ListagemSkins({
     useEffect(() => { document.title = "CS SKINS | Skins"; }, []);
 
     useLayoutEffect(() => {
-        if (posicaoRolagem === null || vetSkins.length === 0) return;
-
-        const frame = requestAnimationFrame(() => {
-            window.scrollTo({ top: posicaoRolagem, left: 0, behavior: "auto" });
+        if (posicaoRolagem.current !== null) {
+            window.scrollTo({ top: posicaoRolagem.current, left: 0, behavior: "auto" });
             restaurarRolagem();
-        });
-
-        return () => cancelAnimationFrame(frame);
-    }, [posicaoRolagem, vetSkins.length, restaurarRolagem]);
+        }
+    }, [posicaoRolagem, restaurarRolagem]);
 
     return (
         <>
@@ -51,6 +49,7 @@ function ListagemSkins({
             <div className={estilos.lista}>
                 <DadosApi
                     vetSkins={vetSkins} setSkins={setSkins}
+                    dataAtualizacao={dataAtualizacao} setDataAtualizacao={setDataAtualizacao}
                     nome={nome} idCategoria={idCategoria}
                     ordenacao={ordenacao} qtdItens={qtdItens}
                     setQtdItens={setQtdItens} aumentarQtdItens={aumentarQtdItens}

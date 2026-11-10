@@ -3,7 +3,7 @@ import NaoEncontrada from './paginas/NaoEncontrada';
 import ItemPage from './paginas/ItemPage';
 import estilos from './App.module.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import ListagemSkins from './paginas/ListagemSkins';
 import Header from './componentes/Header';
 import Footer from './componentes/Footer';
@@ -11,16 +11,28 @@ import Inicio from './paginas/Inicio';
 import Main from './componentes/Main';
 import BotaoVoltarTopo from './componentes/BotaoVoltarTopo';
 
-const QTD_PADRAO_ITENS = 50;
+const qtdPadraoItens = 50;
 
 function App() {
   const [vetSkins, setSkins] = useState([]);
+  const [dataAtualizacao, setDataAtualizacao] = useState(null);
   const [nome, setNome] = useState("");
   const [inputNome, setInputNome] = useState("");
   const [idCategoria, setCategoria] = useState("");
   const [ordenacao, setOrdenacao] = useState("alfabetica");
-  const [qtdItens, setQtdItens] = useState(QTD_PADRAO_ITENS);
-  const [posicaoRolagemListagem, setPosicaoRolagemListagem] = useState(null);
+  const [qtdItens, setQtdItens] = useState(qtdPadraoItens);
+  const posicaoRolagemListagem = useRef(null);
+
+  useLayoutEffect(() => {
+    if ('scrollRestoration' in window.history) {
+      const restauracaoAnterior = window.history.scrollRestoration;
+      window.history.scrollRestoration = 'manual';
+
+      return () => {
+        window.history.scrollRestoration = restauracaoAnterior;
+      };
+    }
+  }, []);
 
   const resetarPesquisa = () => {
     setInputNome("");
@@ -31,19 +43,21 @@ function App() {
   }
 
   const aumentarQtdItens = useCallback(() => {
-    setQtdItens((qtdAtual) => qtdAtual + QTD_PADRAO_ITENS);
+    setQtdItens((qtdAtual) => qtdAtual + qtdPadraoItens);
   }, []);
 
   const resetarQtdItens = () => {
-    setQtdItens(QTD_PADRAO_ITENS);
+    setQtdItens(qtdPadraoItens);
   }
 
-  const salvarPosicaoRolagemListagem = useCallback(() => {
-    setPosicaoRolagemListagem(window.scrollY);
+  const salvarPosicaoRolagemListagem = useCallback((evento) => {
+    if (evento.button === 0 && !evento.metaKey && !evento.altKey && !evento.ctrlKey && !evento.shiftKey) {
+      posicaoRolagemListagem.current = window.scrollY;
+    }
   }, []);
 
   const restaurarRolagemListagem = useCallback(() => {
-    setPosicaoRolagemListagem(null);
+    posicaoRolagemListagem.current = null;
   }, []);
 
   return (
@@ -56,6 +70,7 @@ function App() {
             <Route path="/skins" element={
               <ListagemSkins
                 vetSkins={vetSkins} setSkins={setSkins}
+                dataAtualizacao={dataAtualizacao} setDataAtualizacao={setDataAtualizacao}
                 nome={nome} setNome={setNome}
                 inputNome={inputNome} setInputNome={setInputNome}
                 idCategoria={idCategoria} setCategoria={setCategoria}

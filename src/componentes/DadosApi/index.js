@@ -1,25 +1,18 @@
-import React, { useEffect, useState, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useState, useMemo, useRef } from 'react';
 import ListagemItens from '../ListagemItens';
 import { filtrarPorNome, filtrarPorCategoria, ordenarPorNome, ordenarPorMaiorRaridade, ordenarPorMenorRaridade } from "./functions";
 import estilos from "./DadosApi.module.css";
 import { Icon } from '@iconify/react/dist/iconify.js';
 
-function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, aumentarQtdItens, salvarPosicaoRolagem }) {
+function DadosApi({ vetSkins, setSkins, dataAtualizacao, setDataAtualizacao, nome, idCategoria, ordenacao, qtdItens, aumentarQtdItens, salvarPosicaoRolagem }) {
     const [dados, setDados] = useState([]);
     const [precos, setPrecos] = useState(null);
     const [dolar, setDolar] = useState(null);
-    const [dataAtualizacao, setDataAtualizacao] = useState(null);
     const [statusDados, setStatusDados] = useState("carregando");
     const [statusPrecos, setStatusPrecos] = useState("carregando");
     const [statusDolar, setStatusDolar] = useState("carregando");
     const marcadorCarregamento = useRef(null);
     const carregandoMais = useRef(false);
-
-    useEffect(() => {
-        fetchData();
-        fetchPrices();
-        fetchDolar();
-    }, []);
 
     const fetchData = async () => {
         try {
@@ -36,21 +29,21 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
         }
     };
 
-    const fetchPrices = async () => {
+    const fetchPrices = useCallback(async () => {
         try {
             const response = await fetch("https://raw.githubusercontent.com/ByMykel/counter-strike-price-tracker/refs/heads/main/static/latest.json");
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
             if (!data?.prices || typeof data.prices !== "object") throw new Error("Resposta de preços inválida");
             setPrecos(data);
-            setDataAtualizacao(data?.metadata?.updated_at);
+            setDataAtualizacao(data.metadata.updated_at || null);
             setStatusPrecos("sucesso");
 
         } catch (error) {
             setStatusPrecos("erro");
             console.error('Erro ao buscar preços da API:', error);
         }
-    };
+    }, [setDataAtualizacao]);
 
     /*
         APIs de cotação do dólar
@@ -72,6 +65,12 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
             console.error('Erro ao buscar dados da API:', error);
         }
     };
+
+    useEffect(() => {
+        fetchData();
+        fetchPrices();
+        fetchDolar();
+    }, [fetchPrices]);
 
     const pegarPreco = (nome) => {
         const preco = precos?.prices?.[nome];

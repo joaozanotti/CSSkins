@@ -6,11 +6,12 @@ function ListagemItens(props) {
     return (
         <div className={estilos.carrossel}>
             <h1>Listagem de skins</h1>
-                {props.dataAtualizacao && (
-                    <p className={estilos.dataAtualizacao}>
-                        Última atualização dos preços: {(new Date(props.dataAtualizacao).toLocaleString("pt-BR", { dateStyle: "short" }))}
-                    </p>
-                )}
+            <p className={props.dataAtualizacao ? estilos.dataAtualizacao : estilos.dataPendente}>
+                Última atualização dos preços:{" "}
+                {props.dataAtualizacao 
+                ? new Date(props.dataAtualizacao).toLocaleString("pt-BR", { dateStyle: "short" })
+                : ""}
+            </p>
             <ul>
                 {props.skins.map((skin) => (
                     <Item key={skin.id} item={skin} salvarPosicaoRolagem={props.salvarPosicaoRolagem}/>
