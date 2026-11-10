@@ -8,6 +8,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
     const [dados, setDados] = useState([]);
     const [precos, setPrecos] = useState(null);
     const [dolar, setDolar] = useState(null);
+    const [dataAtualizacao, setDataAtualizacao] = useState(null);
     const [statusDados, setStatusDados] = useState("carregando");
     const [statusPrecos, setStatusPrecos] = useState("carregando");
     const [statusDolar, setStatusDolar] = useState("carregando");
@@ -28,6 +29,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
             if (!Array.isArray(data)) throw new Error("Resposta de skins inválida");
             setDados(data);
             setStatusDados("sucesso");
+
         } catch (error) {
             setStatusDados("erro");
             console.error('Erro ao buscar dados da API:', error);
@@ -41,7 +43,9 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
             const data = await response.json();
             if (!data?.prices || typeof data.prices !== "object") throw new Error("Resposta de preços inválida");
             setPrecos(data);
+            setDataAtualizacao(data?.metadata?.updated_at);
             setStatusPrecos("sucesso");
+
         } catch (error) {
             setStatusPrecos("erro");
             console.error('Erro ao buscar preços da API:', error);
@@ -62,6 +66,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
             if (!isFinite(data.rates.BRL)) throw new Error("Cotação do dólar inválida");
             setDolar(data.rates.BRL);
             setStatusDolar("sucesso");
+
         } catch (error) {
             setStatusDolar("erro");
             console.error('Erro ao buscar dados da API:', error);
@@ -197,7 +202,7 @@ function DadosApi({ vetSkins, setSkins, nome, idCategoria, ordenacao, qtdItens, 
 
     return (
         <div className={estilos.listagem}>
-            <ListagemItens skins={vetSkins} salvarPosicaoRolagem={salvarPosicaoRolagem}/>
+            <ListagemItens dataAtualizacao={dataAtualizacao} skins={vetSkins} salvarPosicaoRolagem={salvarPosicaoRolagem}/>
             {
                 statusDados === "erro" ?
                 <p className={estilos.msgErro}>Erro ao buscar skins.</p> : ""

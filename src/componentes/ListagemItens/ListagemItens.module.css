@@ -12,6 +12,13 @@
     text-transform: uppercase;
 }
 
+.dataAtualizacao {
+    color: #fff;
+    align-self: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
 .carrossel ul {
     background-color: #0c0c0c;
     list-style: none;
@@ -90,14 +97,22 @@
     }
 }
 
-@media (max-width: 380px) {
+@media (max-width: 390px) {
     .carrossel h1 {
         font-size: 28px;
+    }
+
+    .dataAtualizacao {
+        font-size: 14px;
     }
 }
 
 @media (max-width: 330px) {
     .carrossel ul li {
         width: 300px;
+    }
+
+    .dataAtualizacao {
+        font-size: 13px;
     }
 }
