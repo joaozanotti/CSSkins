@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect } from "react";
 import DadosApi from "../../componentes/DadosApi";
 import MenuFiltros from "../../componentes/MenuFiltros";
 import estilos from "./ListagemSkins.module.css";
+import BotaoVoltarTopo from "../../componentes/BotaoVoltarTopo";
 
 function ListagemSkins({
     vetSkins,
@@ -56,6 +57,7 @@ function ListagemSkins({
                     salvarPosicaoRolagem={salvarPosicaoRolagem}
                 />
             </div>
+            <BotaoVoltarTopo resetarQtdItens={resetarQtdItens}/>
         </>
     )
 }

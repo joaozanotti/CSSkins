@@ -9,7 +9,6 @@ import Header from './componentes/Header';
 import Footer from './componentes/Footer';
 import Inicio from './paginas/Inicio';
 import Main from './componentes/Main';
-import BotaoVoltarTopo from './componentes/BotaoVoltarTopo';
 
 const qtdPadraoItens = 50;
 
@@ -89,7 +88,6 @@ function App() {
           </Routes>
         </Main>
         <Footer autor="João Vitor"/>
-        <BotaoVoltarTopo resetarQtdItens={resetarQtdItens}/>
       </BrowserRouter>
     </div>
   )
